@@ -4,6 +4,7 @@ import { Title, Heading, Paragraph } from '../components/typography'
 import { Section } from '../components/section'
 import { Card } from '../components/card'
 import { ListGrid } from '../components/list'
+import { Button } from '../components/button'
 
 const tempApps = [
   { id: 'one', name: 'App One', type: 'A' },
@@ -38,8 +39,9 @@ export const AppStore = () => {
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                   dtempor incididunt ut labore et dolore magna aliqua
                 </Card.Body>
-                <Card.Footer>
-                  Launch | View Info
+                <Card.Footer style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Button small variant="success">Launch</Button>
+                  <Button small variant="info">Info</Button>
                 </Card.Footer>
               </Card>
             ))
@@ -57,8 +59,9 @@ export const AppStore = () => {
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                   dtempor incididunt ut labore et dolore magna aliqua
                 </Card.Body>
-                <Card.Footer>
-                  Launch | View Info
+                <Card.Footer style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Button small variant="success">Launch</Button>
+                  <Button small variant="info">Info</Button>
                 </Card.Footer>
               </Card>
             ))
@@ -76,8 +79,9 @@ export const AppStore = () => {
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                   dtempor incididunt ut labore et dolore magna aliqua
                 </Card.Body>
-                <Card.Footer>
-                  Launch | View Info
+                <Card.Footer style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Button small variant="success">Launch</Button>
+                  <Button small variant="info">Info</Button>
                 </Card.Footer>
               </Card>
             ))
