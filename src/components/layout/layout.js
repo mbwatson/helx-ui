@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useWindowWidth } from '@react-hook/window-size'
 import { useScrollPosition } from '../../hooks'
+import { useEnvironment } from '../../contexts'
 import { Link } from '../link'
 import { Menu, MobileMenu } from '../menu'
 import { menuItems } from '../../menu'
@@ -77,6 +78,7 @@ const Footer = styled.footer(({ theme }) => `
 export const Layout = ({ children }) => {
   const windowWidth = useWindowWidth()
   const scrollPosition = useScrollPosition()
+  const { testVariable } = useEnvironment()
 
   return (
     <Wrapper>

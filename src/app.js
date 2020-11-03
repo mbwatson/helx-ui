@@ -3,7 +3,7 @@ import { Layout } from './components/layout'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './theme'
 import { Router } from '@reach/router'
-import { AuthProvider } from './contexts'
+import { AuthProvider, EnvironmentProvider } from './contexts'
 import {
   Home,
   AppStore,
@@ -13,18 +13,20 @@ import {
 
 const App = () => {
   return (
-    <AuthProvider>
-      <ThemeProvider theme={ theme }>
-        <Layout>
-          <Router>
-            <Home path="/" />
-            <AppStore path="app-store" />
-            <Account path="account" />
-            <NotFound default />
-          </Router>
-        </Layout>
-      </ThemeProvider>
-    </AuthProvider>
+    <EnvironmentProvider>
+      <AuthProvider>
+        <ThemeProvider theme={ theme }>
+          <Layout>
+            <Router>
+              <Home path="/" />
+              <AppStore path="app-store" />
+              <Account path="account" />
+              <NotFound default />
+            </Router>
+          </Layout>
+        </ThemeProvider>
+      </AuthProvider>
+    </EnvironmentProvider>
   );
 }
 
