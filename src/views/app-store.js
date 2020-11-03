@@ -1,18 +1,21 @@
 import React from 'react'
 import { Container } from '../components/layout'
-import { Title, Paragraph } from '../components/typography'
+import { Title, Heading, Paragraph } from '../components/typography'
+import { Section } from '../components/section'
 import { Card } from '../components/card'
 import { ListGrid } from '../components/list'
 
 const tempApps = [
-  { id: 'one', name: 'App One' },
-  { id: 'two', name: 'App Two' },
-  { id: 'three', name: 'App Three' },
-  { id: 'four', name: 'App Four' },
-  { id: 'five', name: 'App Five' },
-  { id: 'six', name: 'App Six' },
-  { id: 'seven', name: 'App Seven' },
-  { id: 'eight', name: 'App Eight' },
+  { id: 'one', name: 'App One', type: 'A' },
+  { id: 'two', name: 'App Two', type: 'B' },
+  { id: 'three', name: 'App Three', type: 'B' },
+  { id: 'four', name: 'App Four', type: 'C' },
+  { id: 'five', name: 'App Five', type: 'B' },
+  { id: 'six', name: 'App Six', type: 'A' },
+  { id: 'seven', name: 'App Seven', type: 'A' },
+  { id: 'eight', name: 'App Eight', type: 'B' },
+  { id: 'nine', name: 'App Nine', type: 'C' },
+  { id: 'ten', name: 'App Ten', type: 'A' },
 ]
 
 export const AppStore = () => {
@@ -25,21 +28,62 @@ export const AppStore = () => {
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
       </Paragraph>
 
-      <ListGrid
-        items={ tempApps.map(app => (
-            <Card key={ app.id }>
-              <Card.Header>{ app.name }</Card.Header>
-              <Card.Body>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                dtempor incididunt ut labore et dolore magna aliqua
-              </Card.Body>
-              <Card.Footer>
-                Launch | View Info
-              </Card.Footer>
-            </Card>
-          ))
-        }
-      />
+      <Section>
+        <Heading>App Group A</Heading>
+        <ListGrid
+          items={ tempApps.filter(item => item.type === 'A').map(app => (
+              <Card key={ app.id }>
+                <Card.Header>{ app.name }</Card.Header>
+                <Card.Body>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  dtempor incididunt ut labore et dolore magna aliqua
+                </Card.Body>
+                <Card.Footer>
+                  Launch | View Info
+                </Card.Footer>
+              </Card>
+            ))
+          }
+        />
+      </Section>
+      
+      <Section>
+        <Heading>App Group B</Heading>
+        <ListGrid
+          items={ tempApps.filter(item => item.type === 'B').map(app => (
+              <Card key={ app.id }>
+                <Card.Header>{ app.name }</Card.Header>
+                <Card.Body>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  dtempor incididunt ut labore et dolore magna aliqua
+                </Card.Body>
+                <Card.Footer>
+                  Launch | View Info
+                </Card.Footer>
+              </Card>
+            ))
+          }
+        />
+      </Section>
+      
+      <Section>
+        <Heading>App Group C</Heading>
+        <ListGrid
+          items={ tempApps.filter(item => item.type === 'C').map(app => (
+              <Card key={ app.id }>
+                <Card.Header>{ app.name }</Card.Header>
+                <Card.Body>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  dtempor incididunt ut labore et dolore magna aliqua
+                </Card.Body>
+                <Card.Footer>
+                  Launch | View Info
+                </Card.Footer>
+              </Card>
+            ))
+          }
+        />
+      </Section>
       
 
       <Paragraph>
