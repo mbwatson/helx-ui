@@ -4,10 +4,13 @@ import styled from 'styled-components'
 import { useWindowWidth } from '@react-hook/window-size'
 import { useScrollPosition } from '../../hooks'
 import { useEnvironment } from '../../contexts'
-import { Link } from '../link'
+import HelxLogo from '../../images/helx-logo-blue.svg'
 import { Menu, MobileMenu } from '../menu'
 import { menuItems } from '../../menu'
 import { Paragraph } from '../typography'
+import { Link } from '../link'
+import { Flexer } from '../flexer'
+
 import './style.css'
 
 //
@@ -24,14 +27,15 @@ const Wrapper = styled.div`
 
 //
 
-const Brand = styled(Link)(({ compact }) => `
-  text-transform: uppercase;
-  transition: padding 250ms;
-  padding: ${ compact ? '0.25rem 2rem' : '2rem' };
-  text-decoration: none;
+const Brand = styled(Link)(({ theme }) => `
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: ${ theme.spacing.medium };
+  & > img {
+    margin: 0;
+    transition: min-height 250ms;
+  }
 `)
 
 Brand.propTypes = {
@@ -44,17 +48,19 @@ Brand.defaultProps = {
 
 //
 
-const Header = styled.header(({ theme }) => `
+const Header = styled.header(({ theme, compact }) => `
   background-color: ${ theme.color.white };
   color: ${ theme.color.black };
   display: flex;
   flex-direction: row;
-  justify-content: space-between;100%
   align-items: stretch;
   filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
   position: sticky;
   top: 0;
   z-index: 1;
+  & img {
+    min-height: ${ compact ? '30px' : '60px' };
+  }
 `)
 
 //
@@ -87,10 +93,11 @@ export const Layout = ({ children }) => {
 
   return (
     <Wrapper>
-      <Header>
-        <Brand to="/" compact={ scrollPosition > 150 ? 1 : 0 }>
-          HeLx
+      <Header compact={ scrollPosition > 150 ? 1 : 0 }>
+        <Brand to="/">
+          <img src={ HelxLogo } alt="Go Home" />
         </Brand>
+        <Flexer />
         { windowWidth <= MOBILE_THRESHHOLD  ? <MobileMenu items={ menuItems } /> : <Menu items={ menuItems } /> }
       </Header>
       <Main>

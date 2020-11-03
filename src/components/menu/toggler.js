@@ -38,12 +38,12 @@ export const Toggler = ({ active, ...props }) => {
     return (
         <Wrapper { ...props }>
             <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
-                x="0px" y="0px" width="28px" height="24px" viewBox="0 0 28 24"
-                stroke={ active ? 'red' : 'white' } strokeWidth="3" strokeLinecap="round"
+                x="0px" y="0px" width="28px" height="20px" viewBox="0 0 28 20"
+                strokeWidth="3" strokeLinecap="round"
             >
                 <Line x1="2" y1="2" x2="26" y2="2" active={ active } />
-                <Line x1="2" y1="12" x2="26" y2="12" active={ active } />
-                <Line x1="2" y1="22" x2="26" y2="22" active={ active } />
+                <Line x1="2" y1="10" x2="26" y2="10" active={ active } />
+                <Line x1="2" y1="18" x2="26" y2="18" active={ active } />
             </svg>
         </Wrapper>
     )
