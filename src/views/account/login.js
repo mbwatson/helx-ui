@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container } from '../../components/layout'
 import { Title, Paragraph } from '../../components/typography'
+import { Button } from '../../components/button'
 import { useAuth } from '../../contexts'
 
 export const Login = () => {
@@ -8,7 +9,7 @@ export const Login = () => {
   return (
     <Container>
       <Title>You are not logged in</Title>
-      <button onClick={ auth.login }>LOGIN</button>
+      <Button onClick={ auth.login }>LOGIN</Button>
       
       <Paragraph>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod

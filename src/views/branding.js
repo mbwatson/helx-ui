@@ -2,9 +2,10 @@ import React from 'react'
 import styled, { useTheme } from 'styled-components'
 import { Container } from '../components/layout'
 import { Section } from '../components/section'
-import { Title, Heading, Paragraph } from '../components/typography'
+import { Title, Heading, Subheading, Paragraph } from '../components/typography'
+import { Button } from '../components/button'
 import { Icon } from '../components/icon'
-
+      
 const IconPreview = styled(Icon)(({ theme }) => `
   margin: ${ theme.spacing.small };
 `)
@@ -22,6 +23,35 @@ export const Branding = () => {
         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </Paragraph>
+
+      <Section>
+        <Heading>Buttons</Heading>
+
+        <Subheading>Active</Subheading>
+
+        <Button>Regular</Button> &nbsp;
+        <Button variant="danger">Danger</Button> &nbsp;
+        <Button variant="warning">Warning</Button> &nbsp;
+        <Button variant="info">Info</Button> &nbsp;
+        <Button variant="success">Success</Button> &nbsp;
+
+        <Subheading>Disabled</Subheading>
+
+        <Button disabled>Regular</Button> &nbsp;
+        <Button disabled variant="danger">Danger</Button> &nbsp;
+        <Button disabled variant="warning">Warning</Button> &nbsp;
+        <Button disabled variant="info">Info</Button> &nbsp;
+        <Button disabled variant="success">Success</Button> &nbsp;
+
+        <Subheading>Small</Subheading>
+
+        <Button small>Regular</Button> &nbsp;
+        <Button small variant="danger">Danger</Button> &nbsp;
+        <Button small variant="warning">Warning</Button> &nbsp;
+        <Button small variant="info">Info</Button> &nbsp;
+        <Button small variant="success">Success</Button> &nbsp;
+
+      </Section>
 
       <Section>
         <Heading>Icons</Heading>

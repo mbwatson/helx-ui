@@ -1,7 +1,9 @@
 import React from 'react'
 import { Container } from '../../components/layout'
 import { Title, Heading, Subheading, Paragraph } from '../../components/typography'
+import { Button } from '../../components/button'
 import { useAuth } from '../../contexts'
+
 
 export const Profile = () => {
   const auth = useAuth()
@@ -9,9 +11,9 @@ export const Profile = () => {
     <Container>
       <Title>My Accouunt</Title>
       
-      <Heading> { auth.user.username } ({ auth.user.email }) </Heading>
+      <Heading>{ auth.user.username } ({ auth.user.email }) </Heading>
 
-      <button onClick={ auth.logout }>LOGOUT</button>
+      <Button onClick={ auth.logout }>LOGOUT</Button>
 
       <Subheading>Profile</Subheading>
       <Paragraph>
