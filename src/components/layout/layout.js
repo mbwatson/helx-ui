@@ -80,6 +80,8 @@ export const Layout = ({ children }) => {
   const scrollPosition = useScrollPosition()
   const { testVariable } = useEnvironment()
 
+  console.log(testVariable)
+
   return (
     <Wrapper>
       <Header>

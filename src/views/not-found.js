@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container } from '../components/layout'
-import { Title, Paragraph } from '../components/typography'
+import { Title } from '../components/typography'
 
 export const NotFound = () => {
   return (
