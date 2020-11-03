@@ -29,6 +29,9 @@ const Brand = styled(Link)(({ compact }) => `
   transition: padding 250ms;
   padding: ${ compact ? '0.25rem 2rem' : '2rem' };
   text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `)
 
 Brand.propTypes = {
