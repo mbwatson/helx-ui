@@ -18,14 +18,14 @@ const MenuItem = styled(Link)(({ theme }) => `
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding: ${ theme.spacing.md };
+  padding: ${ theme.spacing.medium };
   text-transform: uppercase;
   transition: background-color 250ms, color 250ms;
   &:hover, &:focus {
     background-color: ${ theme.color.grey.light };
   }
-  &.active {
-    color: ${ theme.color.primary.main }
+  &[aria-current] {
+    background-color: ${ theme.color.grey.light };
   }
 `)
 
@@ -33,8 +33,17 @@ export const Menu = ({ items }) => {
   const auth = useAuth()
   return (
     <Wrapper>
-      { items.map(item => <MenuItem to={ item.path } key={ item.text } activeClassName="active">{ item.text }</MenuItem>) }
-      <MenuItem to="/account" activeClassName="active">{ auth.user ? 'ACCOUNT' : 'LOGIN' }</MenuItem>
+      {
+        items.map(item => (
+          <MenuItem
+            to={ item.path }
+            key={ item.text }
+          >
+            { item.text }
+          </MenuItem>
+        ))
+      }
+      <MenuItem to="/account">{ auth.user ? 'ACCOUNT' : 'LOGIN' }</MenuItem>
     </Wrapper>
   )
 }
