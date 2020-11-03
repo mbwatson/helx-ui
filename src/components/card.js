@@ -8,18 +8,18 @@ const Wrapper = styled.div(({ theme }) => `
 
 const CardHeader = styled.header(({ theme }) => `
   background-color: ${ theme.color.grey.light };
-  padding: ${ theme.spacing.small };
+  padding: ${ theme.spacing.medium };
   font-weight: bold;
 `)
 
 const CardBody = styled.div(({ theme }) => `
   background-color: #fff;
-  padding: ${ theme.spacing.small };
+  padding: ${ theme.spacing.medium };
 `)
 
 const CardFooter = styled.footer(({ theme }) => `
   background-color: ${ theme.color.grey.light };
-  padding: ${ theme.spacing.small };
+  padding: ${ theme.spacing.medium };
 `)
 
 class Card extends Component {
