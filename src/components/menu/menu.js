@@ -1,8 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import styled, { useTheme } from 'styled-components'
 import { Link } from '../link'
 import { useAuth } from '../../contexts'
+import { Icon } from '../icon'
 
 const Wrapper = styled.nav`
   display: flex;
@@ -30,20 +31,14 @@ const MenuItem = styled(Link)(({ theme }) => `
 `)
 
 export const Menu = ({ items }) => {
+  const theme = useTheme()
   const auth = useAuth()
   return (
     <Wrapper>
-      {
-        items.map(item => (
-          <MenuItem
-            to={ item.path }
-            key={ item.text }
-          >
-            { item.text }
-          </MenuItem>
-        ))
-      }
-      <MenuItem to="/account">{ auth.user ? 'ACCOUNT' : 'LOGIN' }</MenuItem>
+      { items.map(item => <MenuItem to={ item.path } key={ item.text }>{ item.text }</MenuItem>) }
+      <MenuItem to="/account">
+        { auth.user ? <Icon icon="userCircle" fill={ theme.color.grey.main } size={ 24 }/> : 'LOGIN' }
+      </MenuItem>
     </Wrapper>
   )
 }
@@ -52,5 +47,5 @@ Menu.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({
      text: PropTypes.string.isRequired,
      path: PropTypes.string.isRequired,
-   })).isRequired,
+  })).isRequired,
 }
