@@ -8,6 +8,7 @@ import {
   Home,
   AppStore,
   Account,
+  Branding,
   NotFound
 } from './views'
 
@@ -21,6 +22,7 @@ const App = () => {
               <Home path="/" />
               <AppStore path="app-store" />
               <Account path="account" />
+              <Branding path="branding" />
               <NotFound default />
             </Router>
           </Layout>
