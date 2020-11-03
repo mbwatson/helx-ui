@@ -4,6 +4,11 @@ import styled from 'styled-components'
 const Wrapper = styled.div(({ theme }) => `
   border-radius: ${ theme.border.radius };
   border: 1px solid ${ theme.color.grey.light };
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
+  transition: filter 250ms;
+  &:hover {
+    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.15));
+  }
 `)
 
 const CardHeader = styled.header(({ theme }) => `
