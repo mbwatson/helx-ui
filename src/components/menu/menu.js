@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { Link } from '../link'
+import { useAuth } from '../../contexts'
 
 const Wrapper = styled.nav`
   display: flex;
@@ -29,9 +30,11 @@ const MenuItem = styled(Link)(({ theme }) => `
 `)
 
 export const Menu = ({ items }) => {
+  const auth = useAuth()
   return (
     <Wrapper>
       { items.map(item => <MenuItem to={ item.path } key={ item.text } activeClassName="active">{ item.text }</MenuItem>) }
+      <MenuItem to="/account" activeClassName="active">{ auth.user ? 'ACCOUNT' : 'LOGIN' }</MenuItem>
     </Wrapper>
   )
 }
