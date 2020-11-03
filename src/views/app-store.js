@@ -11,6 +11,8 @@ const tempApps = [
   { id: 'four', name: 'App Four' },
   { id: 'five', name: 'App Five' },
   { id: 'six', name: 'App Six' },
+  { id: 'seven', name: 'App Seven' },
+  { id: 'eight', name: 'App Eight' },
 ]
 
 export const AppStore = () => {

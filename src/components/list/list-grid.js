@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-export const Wrapper = styled.ul(({ theme, gap }) => `
+export const Wrapper = styled.ul(({ theme, gap = theme.spacing.large }) => `
   list-style-type: none;
+  margin: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-gap: ${ theme.spacing.large };
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: ${ gap };
 `)
 
 const ListGridItem = styled.li(({ theme }) => ``)
