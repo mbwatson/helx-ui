@@ -31,6 +31,9 @@ export const AppStore = () => {
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                 dtempor incididunt ut labore et dolore magna aliqua
               </Card.Body>
+              <Card.Footer>
+                Launch | View Info
+              </Card.Footer>
             </Card>
           ))
         }
