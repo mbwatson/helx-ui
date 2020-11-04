@@ -7,6 +7,7 @@ import { AuthProvider, EnvironmentProvider } from './contexts'
 import {
   Home,
   AppStore,
+  Search,
   Account,
   Branding,
   NotFound
@@ -20,9 +21,10 @@ const App = () => {
           <Layout>
             <Router>
               <Home path="/" />
-              <AppStore path="app-store" />
-              <Account path="account" />
-              <Branding path="branding" />
+              <AppStore path="/app-store" />
+              <Account path="/account" />
+              <Search path="/search" />
+              <Branding path="/branding" />
               <NotFound default />
             </Router>
           </Layout>
