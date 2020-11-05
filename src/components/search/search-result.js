@@ -14,7 +14,7 @@ export const Result = ({ index, result }) => {
   return (
     <Wrapper>
       <div className="index">{ index }</div>
-      <ReactJson src={ result } collapsed={ true } theme="monokai" />
+      <ReactJson src={ result } collapsed={ true } enableClipboard={ false } theme="monokai" />
     </Wrapper>
   )
 }
