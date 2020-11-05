@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import { Input } from '../input'
 import { Button } from '../button'
 import { useHelxSearch } from './search-context'
-
-const Wrapper = styled.div``
+import { InputGroup } from '../input-group'
 
 export const SearchForm = () => {
   const [query, setQuery] = useState()
@@ -19,10 +18,9 @@ export const SearchForm = () => {
   }
 
   return (
-    <Wrapper>
-      <Input value={ query } onChange={ handleChangeQuery } onKeyDown={ handleKeyDown } />
-      &nbsp;
+    <InputGroup>
+      <Input value={ query } onChange={ handleChangeQuery } onKeyDown={ handleKeyDown } style={{ flex: 1 }} />
       <Button small onClick={ () => doSearch(query) }>Search</Button>
-    </Wrapper>
+    </InputGroup>
   )
 }
