@@ -9,7 +9,6 @@ export const useHelxSearch = () => useContext(HelxSearchContext)
 
 //
 
-const PER_PAGE = 20
 
 //
 
@@ -20,6 +19,12 @@ export const HelxSearch = ({ children }) => {
   const [error, setError] = useState({})
   const [results, setResults] = useState([])
   const [totalResults, setTotalResults] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
+  const [perPage, setPerpage] = useState(5)
+
+  const goToPage = pageNumber => {
+    setCurrentPage(pageNumber)
+  }
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -28,14 +33,15 @@ export const HelxSearch = ({ children }) => {
         const params = {
           index: 'test',
           query: query,
-          offset: 0,
-          size: PER_PAGE,
+          offset: currentPage * perPage,
+          size: perPage,
         }
         const response = await axios.post(helxSearchUrl, params)
         if (response.status === 200 && response.data.result) {
+          console.log(response.data.result.total_items)
           const hits = response.data.result.total_items === 0 ? [] : response.data.result.hits.hits.map(r => r._source)
           setResults(hits)
-          setTotalResults(hits.length)
+          setTotalResults(response.data.result.total_items)
         } else {
           setResults([])
         }
@@ -43,6 +49,7 @@ export const HelxSearch = ({ children }) => {
         console.log(error)
         setError({ message: 'An error occurred!' })
       }
+      setCurrentPage(0)
       setIsLoadingResults(false)
     }
     if (query) {
@@ -58,7 +65,9 @@ export const HelxSearch = ({ children }) => {
   }
 
   return (
-    <HelxSearchContext.Provider value={{ query, error, isLoadingResults, results, totalResults, doSearch }}>
+    <HelxSearchContext.Provider value={{
+      query, error, isLoadingResults, results, totalResults, currentPage, perPage, doSearch
+    }}>
       { children }
     </HelxSearchContext.Provider>
   )
