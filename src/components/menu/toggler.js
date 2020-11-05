@@ -23,14 +23,14 @@ const Line = styled.line(({ theme, active }) => `
     transform-origin: 50% 50%;
     stroke: ${ active ? theme.color.danger : theme.color.primary.main };
     &:nth-child(1) {
-        transform: ${ active ? 'rotate(45deg) translateY(10px)' : 'rotate(0deg) translateY(0%)' };
+        transform: ${ active ? 'rotate(45deg) translateY(8px)' : 'rotate(0deg) translateY(0%)' };
     }
     &:nth-child(2) {
         transform: ${ active ? 'scaleX(0.1)' : 'scaleX(1.0)' };
         opacity: ${ active ? 0 : 1 };
     }
     &:nth-child(3) {
-        transform: ${ active ? 'rotate(-45deg) translateY(-10px)' : 'rotate(0deg) translateY(0%)' };
+        transform: ${ active ? 'rotate(-45deg) translateY(-8px)' : 'rotate(0deg) translateY(0%)' };
     }
 `)
 
