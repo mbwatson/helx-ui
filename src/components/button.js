@@ -53,11 +53,12 @@ const Ripple = styled.span`
   animation: ${ RIPPLE_DURATION }ms ease 1 forwards ${ rippleEffect };
 `
 
-export const Button = ({ children, variant, ...props }) => {
+export const Button = ({ children, variant, onClick, ...props }) => {
   const [coords, setCoords] = useState({ x: -1, y: -1 })
   const [isRippling, setIsRippling] = useState(false)
 
   const handleClick = event => {
+    // perform ripple animation
     const { left, top, width, height } = event.target.getBoundingClientRect()
     const { clientX, clientY } = event
     if (clientX === 0 && clientY === 0) {
@@ -65,6 +66,8 @@ export const Button = ({ children, variant, ...props }) => {
     } else {
       setCoords({ x: clientX - left - 15, y: clientY - top - 15 }) // unsure why `-15` offset is needed here
     }
+    // call passed-in click handler
+    onClick()
   }
 
   useEffect(() => {
