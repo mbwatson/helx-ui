@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { useHelxSearch } from './search-context'
 import { LoadingSpinner } from '../loading-spinner'
 import { Result } from './search-result'
+import { PaginationTray } from './search-pagination-tray'
 
 const Wrapper = styled.div``
 
@@ -24,14 +25,7 @@ export const SearchResults = () => {
             <br/><br/>
             Page { currentPage + 1 } of { Math.ceil(totalResults / perPage) } ( { perPage } results per page )
             <br/><br/>
-            {
-              [...Array(Math.ceil(totalResults / perPage)).keys()].map(i => 
-                <span key={ `page-${ i }` } style={{ padding: '1rem' }}>
-                  { currentPage === i ? i + 1 : <a href="#">{ i + 1 }</a> }
-                </span>
-              )
-            }
-            <br/><br/>
+            <PaginationTray />
             {
               results.map((result, i) => <Result key={ `result-${ currentPage * perPage + i }` }index={ currentPage * perPage + i } result={ result } />)
             }
