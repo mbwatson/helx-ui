@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
 import { useHelxSearch } from './search-context'
+import { LoadingSpinner } from '../loading-spinner'
 
 const Wrapper = styled.div``
 
@@ -11,7 +12,7 @@ export const SearchResults = () => {
       
       <br/><br/>
 
-      { isLoadingResults && 'Searching...' }
+      { isLoadingResults && <LoadingSpinner /> }
 
       { !isLoadingResults && error && <span>{ error.message }</span> }
 
