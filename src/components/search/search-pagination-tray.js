@@ -10,15 +10,18 @@ const Wrapper = styled.div`
 `
 
 export const PaginationTray = () => {
-  const { totalResults, currentPage, perPage } = useHelxSearch()
+  const { totalResults, currentPage, perPage, doSearch, goToPage } = useHelxSearch()
+  
+  const handleClickPageLink = pageNumber => event => {
+    goToPage(pageNumber)
+  }
+
   return (
     <Wrapper>
       {
-        [...Array(Math.ceil(totalResults / perPage)).keys()].map(i => 
-          <span key={ `page-${ i }` } style={{ padding: '1rem' }}>
-            { currentPage === i ? i + 1 : <a href="#">{ i + 1 }</a> }
-          </span>
-        )
+        [...Array(Math.ceil(totalResults / perPage)).keys()].map(i => (
+          <button key={ `page-${ i }` } onClick={ handleClickPageLink(i) } disabled={ currentPage === i }>{ i + 1 }</button>
+        ))
       }
     </Wrapper>
   )

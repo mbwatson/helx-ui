@@ -20,7 +20,7 @@ export const HelxSearch = ({ children }) => {
   const [results, setResults] = useState([])
   const [totalResults, setTotalResults] = useState(0)
   const [currentPage, setCurrentPage] = useState(0)
-  const [perPage, setPerpage] = useState(5)
+  const [perPage, ] = useState(5)
 
   const goToPage = pageNumber => {
     setCurrentPage(pageNumber)
@@ -55,7 +55,7 @@ export const HelxSearch = ({ children }) => {
     if (query) {
       fetchResults()
     }
-  }, [helxSearchUrl, query, setResults, setError])
+  }, [helxSearchUrl, query, setResults, setError, currentPage, perPage])
 
   const doSearch = q => {
     const trimmedQuery = q.trim()
@@ -66,7 +66,7 @@ export const HelxSearch = ({ children }) => {
 
   return (
     <HelxSearchContext.Provider value={{
-      query, error, isLoadingResults, results, totalResults, currentPage, perPage, doSearch
+      query, error, isLoadingResults, results, totalResults, currentPage, perPage, doSearch, goToPage
     }}>
       { children }
     </HelxSearchContext.Provider>
