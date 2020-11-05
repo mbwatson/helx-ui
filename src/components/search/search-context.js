@@ -51,8 +51,9 @@ export const HelxSearch = ({ children }) => {
   }, [helxSearchUrl, query, setResults, setError])
 
   const doSearch = q => {
-    if (q.trim()) {
-      setQuery(q.trim())
+    const trimmedQuery = q.trim()
+    if (trimmedQuery !== '') {
+      setQuery(trimmedQuery)
     }
   }
 

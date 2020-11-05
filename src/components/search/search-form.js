@@ -6,7 +6,7 @@ import { useHelxSearch } from './search-context'
 import { InputGroup } from '../input-group'
 
 export const SearchForm = () => {
-  const [query, setQuery] = useState()
+  const [query, setQuery] = useState('')
   const { doSearch } = useHelxSearch()
 
   const handleChangeQuery = event => setQuery(event.target.value)
