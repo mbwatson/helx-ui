@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useWindowWidth } from '@react-hook/window-size'
 import { useScrollPosition } from '../../hooks'
+import { useEnvironment } from '../../contexts'
 import HelxLogo from '../../images/helx-logo-blue.svg'
 import { Menu, MobileMenu } from '../menu'
 import { menuItems } from '../../menu'
@@ -33,7 +34,7 @@ const Brand = styled(Link)(({ theme }) => `
   padding: ${ theme.spacing.medium };
   & > img {
     margin: 0;
-    transition: min-height 250ms;
+    transition: min-height 150ms;
   }
 `)
 
@@ -86,6 +87,9 @@ const Footer = styled.footer(({ theme }) => `
 export const Layout = ({ children }) => {
   const windowWidth = useWindowWidth()
   const scrollPosition = useScrollPosition()
+  const { testVariable } = useEnvironment()
+
+  console.log(testVariable)
 
   return (
     <Wrapper>

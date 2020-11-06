@@ -67,7 +67,7 @@ export const Button = ({ children, variant, onClick, ...props }) => {
       setCoords({ x: clientX - left - 15, y: clientY - top - 15 }) // unsure why `-15` offset is needed here
     }
     // call passed-in click handler
-    onClick && onClick()
+    onClick()
   }
 
   useEffect(() => {
