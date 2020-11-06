@@ -24,8 +24,17 @@ const CardBody = styled.div(({ theme }) => `
 `)
 
 const CardFooter = styled.footer(({ theme }) => `
-  background-color: ${ theme.color.grey.dark };
   padding: ${ theme.spacing.medium };
+  background-image
+  background-color: ${ theme.color.grey.dark };
+  // opacity: 0.4;
+  background: repeating-linear-gradient(
+    -45deg,
+    #000000aa 0,
+    #000000aa 2px,
+    ${ theme.color.grey.dark } 2px,
+    ${ theme.color.grey.dark } 3px
+  );
 `)
 
 class Card extends Component {
