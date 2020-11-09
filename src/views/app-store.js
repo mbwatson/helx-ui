@@ -22,7 +22,7 @@ const AppCard = ({ name, description }) => {
       {
         flipped
         ? (
-          <Card.Body style={{ backgroundColor: theme.color.grey.dark, color: theme.color.white }}>
+          <Card.Body>
             <h5>Additional Details</h5>
             - detail 1 <br/>
             - detail 2 <br/>
