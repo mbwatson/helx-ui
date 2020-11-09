@@ -1,5 +1,5 @@
-import React from 'react'
-import { useTheme } from 'styled-components'
+import React, { useState } from 'react'
+import styled, { useTheme } from 'styled-components'
 import { Container } from '../components/layout'
 import { Title, Heading, Paragraph } from '../components/typography'
 import { Section } from '../components/section'
@@ -10,8 +10,39 @@ import { IconButton } from '../components/button'
 
 import registry from '../temp/registry.json'
 
-export const AppStore = () => {
+const AppCard = ({ name, description }) => {
   const theme = useTheme()
+  const [flipped, setFlipped] = useState(false)
+
+  const toggleFlipped = event => setFlipped(!flipped)
+
+  return (
+    <Card style={{ minHeight: '250px' }}>
+      <Card.Header>{ name }</Card.Header>
+      {
+        flipped
+        ? (
+          <Card.Body style={{ backgroundColor: theme.color.grey.dark, color: theme.color.white }}>
+            <h5>Additional Details</h5>
+            - detail 1 <br/>
+            - detail 2 <br/>
+            - detail 3 <br/>
+          </Card.Body>
+        ) : (
+          <Card.Body>
+            { description }
+          </Card.Body>
+        )
+      }
+      <Card.Footer style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Button small variant="success">Launch</Button>
+        <IconButton variant="info" icon="info" fill={ flipped ? theme.color.primary.dark : theme.color.white } size={ 24 } onClick={ toggleFlipped }/>
+      </Card.Footer>
+    </Card>
+  )
+}
+
+export const AppStore = () => {
   return (
     <Container>
       <Title>App Store</Title>
@@ -28,19 +59,8 @@ export const AppStore = () => {
             <ListGrid
               items={
                 Object.keys(registry.contexts[contextKey].apps).map(appKey => {
-                  const { name, description } = registry.contexts[contextKey].apps[appKey]
-                  return (
-                    <Card key={ `${ contextKey }-${ appKey }` } style={{ minHeight: '250px' }}>
-                      <Card.Header>{ name }</Card.Header>
-                      <Card.Body>
-                        { description }
-                      </Card.Body>
-                      <Card.Footer style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Button small variant="success">Launch</Button>
-                        <IconButton variant="info" icon="info" fill={ theme.color.white } size={ 24 }/>
-                      </Card.Footer>
-                    </Card>
-                  )
+                  const appDetails = registry.contexts[contextKey].apps[appKey]
+                  return <AppCard key={ `${ contextKey }-${ appKey }` } { ...appDetails } />
                 })
               }
             />

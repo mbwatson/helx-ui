@@ -10,9 +10,9 @@ const Wrapper = styled(Button)(({ theme }) => `
   padding: ${ theme.spacing.small };
 `)
 
-export const IconButton = ({ icon, fill, variant, size }) => {
+export const IconButton = ({ icon, fill, variant, size, ...rest }) => {
   return (
-    <Wrapper  variant={ variant }>
+    <Wrapper  variant={ variant } { ...rest }>
       <Icon icon={ icon } fill={ fill } size={ size }/>
     </Wrapper>
   )
