@@ -1,5 +1,5 @@
 import styled from 'styled-components'
 
-export const Section = styled.section`
-  margin: 1rem 0 2rem 0;
-`
+export const Section = styled.section(({ theme }) => `
+  margin: 0 0 ${ theme.spacing.large } 0;
+`)

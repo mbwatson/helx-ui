@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div(({ theme }) => `
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
   border-radius: ${ theme.border.radius };
   border: 1px solid ${ theme.color.grey.light };
   overflow: hidden;
@@ -21,6 +26,7 @@ const CardHeader = styled.header(({ theme }) => `
 const CardBody = styled.div(({ theme }) => `
   background-color: #fff;
   padding: ${ theme.spacing.medium };
+  flex: 1;
 `)
 
 const CardFooter = styled.footer(({ theme }) => `
@@ -44,7 +50,7 @@ class Card extends Component {
 
   render() {
     return (
-      <Wrapper>
+      <Wrapper { ...this.props }>
         { this.props.children }
       </Wrapper>
     )
