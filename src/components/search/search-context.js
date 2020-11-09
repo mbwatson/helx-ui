@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { navigate } from '@reach/router';
 import axios from 'axios'
 import { useEnvironment } from '../../contexts'
 
@@ -23,15 +24,16 @@ export const HelxSearch = ({ urlQuery, children }) => {
   const [perPage, setPerPage] = useState(10)
   const [currentUrl, setCurrentUrl] = useState(window.location.href);
 
-  //update url when pageNumber changes
+  //update url and currentPage state when pageNumber changes
   const goToPage = pageNumber => {
-    window.location.replace(`/search/query=${query}&page=${pageNumber}`);
-    setCurrentUrl(window.location.href);
+    navigate(`/search/query=${query}&page=${pageNumber}`);
+    setCurrentPage(pageNumber);
   }
 
-  //update query and currentPage state variable when url changes
+  //update query and currentPage state variable when url reloads
   useEffect(() => {
     const urlParams = new URLSearchParams(urlQuery);
+    console.log(urlParams.get('query'))
     setQuery(urlParams.get('query'));
     setCurrentPage(parseInt(urlParams.get('page')));
   },[currentUrl])
@@ -47,6 +49,7 @@ export const HelxSearch = ({ urlQuery, children }) => {
           size: perPage,
         }
         const response = await axios.post(helxSearchUrl, params)
+        console.log(response);
         if (response.status === 200 && response.data.result) {
           console.log(currentPage);
           const hits = response.data.result.total_items === 0 ? [] : response.data.result.hits.hits.map(r => r._source)
@@ -67,12 +70,12 @@ export const HelxSearch = ({ urlQuery, children }) => {
     }
   }, [helxSearchUrl, currentUrl, query, setResults, setError, currentPage, perPage])
 
-  //update query variable when search function is called
+  //update url and query state when search function is called
   const doSearch = q => {
     const trimmedQuery = q.trim()
     if (trimmedQuery !== '') {
-      window.location.replace(`/search/query=${trimmedQuery}&page=${currentPage}`);
-      setCurrentUrl(window.location.href);
+      navigate(`/search/query=${trimmedQuery}&page=${currentPage}`);
+      setQuery(trimmedQuery);
     }
   }
 
