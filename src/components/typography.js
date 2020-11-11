@@ -22,11 +22,11 @@ export const Subheading = styled.h3(({ center }) => `
   ${ center ? 'text-align: center': undefined }
 `)
 
-export const Paragraph = styled.p(({ align, width, maxWidth }) => `
+export const Paragraph = styled.p(({ align, width, maxWidth, dense }) => `
   text-align: ${ align };
   width: ${ width };
   max-width: ${ maxWidth };
-  margin: 1rem auto 2rem auto;
+  margin: ${ dense ? '0.5rem' : '1rem' } auto ${ dense ? '1rem' : '2rem' } auto;
 `)
 
 Paragraph.propTypes = {
