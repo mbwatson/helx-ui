@@ -13,7 +13,7 @@ const Wrapper = styled.div(({ theme }) => `
   filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.1));
   transition: filter 250ms;
   &:hover {
-    filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.15));
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.2));
   }
 `)
 

@@ -33,7 +33,7 @@ const Brand = styled(Link)(({ theme }) => `
   padding: ${ theme.spacing.medium };
   & > img {
     margin: 0;
-    transition: min-height 250ms;
+    transition: min-height 150ms;
   }
 `)
 

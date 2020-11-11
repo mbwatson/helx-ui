@@ -17,6 +17,7 @@ export const Wrapper = styled.button(({ theme, variant, small }) => `
   transition: filter 250ms;
   &:disabled {
     filter: saturate(0.25);
+    border: 1px solid red;
     cursor: default;
   }
   &:not(:disabled):hover {
