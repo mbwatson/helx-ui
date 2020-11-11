@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container } from '../components/layout'
 import { Title, Paragraph } from '../components/typography'
+import { Tooltip } from '../components/tooltip'
 
 export const Home = () => {
   return (
@@ -14,6 +15,10 @@ export const Home = () => {
         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
         proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </Paragraph>
-    </Container>
+    
+    <Tooltip tip="TEST!" placement="bottom"> 
+      <button>tooltip test</button>
+    </Tooltip>
+  </Container>
   )
 }
