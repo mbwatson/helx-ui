@@ -3,6 +3,7 @@ import styled, { useTheme } from 'styled-components'
 import { useHelxSearch } from './search-context'
 import { LoadingSpinner } from '../loading-spinner'
 import { Result } from './search-result'
+import { PaginationTray } from './search-pagination-tray'
 import { Link } from '../link'
 import { Icon } from '../icon'
 
@@ -27,19 +28,21 @@ export const SearchResults = () => {
       { !isLoadingResults && error && <span>{ error.message }</span> }
 
       {
-        !isLoadingResults && !error.message && (
+        query && !isLoadingResults && !error.message && (
           <Fragment>
-            { results.length } results for "{ query }" (total_items = { totalResults })
-            <br/><br/>
-            Page { currentPage } of { Math.ceil(totalResults / perPage) } ( { perPage } results per page )
-            <br/><br/>
-            { link }
-            {
-              results.map((result, i) => {
-                const index = (currentPage - 1) * perPage + i + 1
-                return <Result key={ `result-${ index }` } index={ index } result={ result } />
-              })
-            }
+            <PaginationTray />
+              { results.length } results for "{ query }" (total_items = { totalResults })
+              <br/><br/>
+              Page { currentPage } of { Math.ceil(totalResults / perPage) } ( { perPage } results per page )
+              <br/><br/>
+              { link }
+              {
+                results.map((result, i) => {
+                  const index = (currentPage - 1) * perPage + i + 1
+                  return <Result key={ `result-${ index }` } index={ index } result={ result } />
+                })
+              }
+            <PaginationTray />
           </Fragment>
         )
       }
