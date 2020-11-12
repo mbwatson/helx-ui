@@ -10,7 +10,7 @@ export const useHelxSearch = () => useContext(HelxSearchContext)
 
 //
 
-const PER_PAGE = 100
+const PER_PAGE = 1000
 
 //
 
@@ -38,7 +38,6 @@ export const HelxSearch = ({ children }) => {
         const params = {
           index: 'test',
           query: query,
-          offset: (currentPage - 1) * PER_PAGE,
           size: PER_PAGE,
         }
         const response = await axios.post(helxSearchUrl, params)
