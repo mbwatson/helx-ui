@@ -61,7 +61,7 @@ export const PaginationTray = () => {
         ))
       }
       <PaginationLink to={ `/search?q=${ query }&p=${ currentPage + 1 }` } icon="chevronRight" disabled={ currentPage >= pageCount }/>
-      <PaginationLink to={ `/search?q=${ query }&p=${ currentPage }` } icon="lastPage" disabled={ currentPage >= pageCount }/>
+      <PaginationLink to={ `/search?q=${ query }&p=${ pageCount }` } icon="lastPage" disabled={ currentPage >= pageCount }/>
     </Wrapper>
   )
 }
