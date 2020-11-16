@@ -10,7 +10,7 @@ export const useHelxSearch = () => useContext(HelxSearchContext)
 
 //
 
-const PER_PAGE = 1000
+const PER_PAGE = 10
 
 //
 
