@@ -8,9 +8,7 @@ import { ListGrid } from '../components/list'
 import { Button } from '../components/button'
 import { IconButton } from '../components/button'
 import { Link } from '../components/link'
-import { useRegistry } from '../hooks'
-
-import registry from '../temp/registry.json'
+import { useEnvironment } from '../contexts'
 
 const Relative = styled.div`
   position: relative;
@@ -79,7 +77,7 @@ const AppCard = ({ name, description, details, docs }) => {
 }
 
 export const Apps = () => {
-  const { context } = useRegistry('braini')
+  const { context } = useEnvironment()
 
   if (!context) return (
     <Container>
