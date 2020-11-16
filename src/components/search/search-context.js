@@ -38,7 +38,8 @@ export const HelxSearch = ({ children }) => {
         const params = {
           index: 'test',
           query: query,
-          size: PER_PAGE,
+          offset: (currentPage - 1) * perPage,
+          size: perPage,
         }
         const response = await axios.post(helxSearchUrl, params)
         // TODO: fixing total_items in API response will fix the pagination/total_items mismatch
