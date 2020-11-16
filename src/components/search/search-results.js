@@ -31,7 +31,7 @@ export const SearchResults = () => {
         query && !isLoadingResults && !error.message && (
           <Fragment>
             <PaginationTray />
-              { results.length } results for "{ query }" (total_items = { totalResults })
+              { totalResults } results for "{ query }" (total_items = { totalResults })
               <br/><br/>
               Page { currentPage } of { Math.ceil(totalResults / perPage) } ( { perPage } results per page )
               <br/><br/>
