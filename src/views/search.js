@@ -11,9 +11,9 @@ export const Search = () => {
 
       <strong>Test Links</strong>
       
-      <div><Link to="/search?q=heart&p=1">{ window.location.protocol }//{ window.location.host }/search?q=heart&p=1</Link></div>
-      <div><Link to="/search?q=lung&p=1">{ window.location.protocol }//{ window.location.host }/search?q=lung&p=1</Link></div>
-      <div><Link to="/search?q=blood&p=1">{ window.location.protocol }//{ window.location.host }/search?q=blood&p=1</Link></div>
+      <div><Link to="/search?q=heart&p=1">{ window.location.host }/search?q=heart&p=1</Link></div>
+      <div><Link to="/search?q=lung&p=1">{ window.location.host }/search?q=lung&p=1</Link></div>
+      <div><Link to="/search?q=blood&p=1">{ window.location.host }/search?q=blood&p=1</Link></div>
 
       <br/><br/>
 

@@ -13,7 +13,7 @@ export const SearchResults = () => {
   const { query, results, totalResults, perPage, currentPage, isLoadingResults, error } = useHelxSearch()
   const theme = useTheme()
   const link = (
-    <Link to={ `/search?query=${ query }&page=${ currentPage }` } style={{ display: 'flex', alignItems: 'center', color: theme.color.primary.dark }}>
+    <Link to={ `/search?q=${ query }&p=${ currentPage }` } style={{ display: 'flex', alignItems: 'center', color: theme.color.primary.dark }}>
       <Icon icon="link" fill={ theme.color.primary.dark } size={ 24 } style={{ padding: '0 4px 0 0' }} />link to these results
     </Link>
   )
