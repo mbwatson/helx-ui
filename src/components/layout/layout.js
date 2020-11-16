@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import { useWindowWidth } from '@react-hook/window-size'
 import { useScrollPosition } from '../../hooks'
+import { useEnvironment } from '../../contexts'
 import HelxLogo from '../../images/helx-logo-blue.svg'
 import { Menu, MobileMenu } from '../menu'
 import { menuItems } from '../../menu'
@@ -28,9 +29,11 @@ const Wrapper = styled.div`
 
 const Brand = styled(Link)(({ theme }) => `
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: ${ theme.spacing.medium };
+  color: ${ theme.color.primary.dark };
   & > img {
     margin: 0;
     transition: min-height 150ms;
@@ -86,12 +89,14 @@ const Footer = styled.footer(({ theme }) => `
 export const Layout = ({ children }) => {
   const windowWidth = useWindowWidth()
   const scrollPosition = useScrollPosition()
-
+  const { context } = useEnvironment()
+  
   return (
     <Wrapper>
       <Header compact={ scrollPosition > 150 ? 1 : 0 }>
         <Brand to="/">
           <img src={ HelxLogo } alt="Go Home" />
+          { context.name }
         </Brand>
         <Flexer />
         { windowWidth <= MOBILE_THRESHHOLD  ? <MobileMenu items={ menuItems } /> : <Menu items={ menuItems } /> }
