@@ -6,7 +6,7 @@ import { Router } from '@reach/router'
 import { AuthProvider, EnvironmentProvider } from './contexts'
 import {
   Home,
-  AppStore,
+  Apps,
   Search,
   Account,
   Branding,
@@ -21,7 +21,7 @@ const App = () => {
           <Layout>
             <Router>
               <Home path="/" />
-              <AppStore path="/app-store" />
+              <Apps path="/apps" />
               <Account path="/account" />
               <Search path="/search/*" />
               <Branding path="/branding" />

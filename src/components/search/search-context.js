@@ -29,7 +29,7 @@ export const HelxSearch = ({ children }) => {
     const queryParams = new URLSearchParams(window.location.search)
     setQuery(queryParams.get('q') || '')
     setCurrentPage(+queryParams.get('p') || 1)
-  }, [window.location.search])
+  }, [window.location.href])
 
   useEffect(() => {
     const fetchResults = async () => {

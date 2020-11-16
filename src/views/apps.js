@@ -8,6 +8,7 @@ import { ListGrid } from '../components/list'
 import { Button } from '../components/button'
 import { IconButton } from '../components/button'
 import { Link } from '../components/link'
+import { useRegistry } from '../hooks'
 
 import registry from '../temp/registry.json'
 
@@ -77,45 +78,24 @@ const AppCard = ({ name, description, details, docs }) => {
   )
 }
 
-export const AppStore = () => {
+export const Apps = () => {
+  const { context } = useRegistry('braini')
+
+  if (!context) return (
+    <Container>
+      <Title>Apps</Title>
+      <Paragraph>
+        Sorry &mdash; no apps found!
+      </Paragraph>
+    </Container>
+  )
+
   return (
     <Container>
-      <Title>App Store</Title>
-      <Paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      </Paragraph>
+      <Title>Apps</Title>
 
-      {
-        Object.keys(registry.contexts).map(contextKey => registry.contexts[contextKey].apps && (
-          <Section>
-            <Heading>{ registry.contexts[contextKey].name }</Heading>
-            <ListGrid
-              items={
-                Object.keys(registry.contexts[contextKey].apps).map(appKey => {
-                  const appDetails = registry.contexts[contextKey].apps[appKey]
-                  return <AppCard key={ `${ contextKey }-${ appKey }` } { ...appDetails } />
-                })
-              }
-            />
-          </Section>
-        ))
-      }
+      <ListGrid items={ Object.keys(context.apps).sort().map(appKey => <AppCard key={ appKey } { ...context.apps[appKey] } />) } />
 
-      <Paragraph>
-        Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </Paragraph>
-      <Paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </Paragraph>
     </Container>
   )
 }
