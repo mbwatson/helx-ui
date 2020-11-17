@@ -27,12 +27,6 @@ export const SearchResults = () => {
   const theme = useTheme()
   const { query, results, totalResults, perPage, currentPage, pageCount, isLoadingResults, error } = useHelxSearch()
 
-  const MemoizedResults = useMemo(() => (
-    <Link to={ `/search?q=${ query }&p=${ currentPage }` } style={{ display: 'inline-flex', alignItems: 'center', color: theme.color.primary.dark }}>
-      <Icon icon="link" fill={ theme.color.primary.dark } size={ 24 } style={{ padding: '0 4px 0 0' }} />shareable link to these results
-    </Link>
-  ), [query, currentPage, theme.color.primary.dark])
-
   const MemoizedLink = useMemo(() => (
     <Link to={ `/search?q=${ query }&p=${ currentPage }` } style={{ display: 'inline-flex', alignItems: 'center', color: theme.color.primary.dark }}>
       <Icon icon="link" fill={ theme.color.primary.dark } size={ 24 } style={{ padding: '0 4px 0 0' }} />shareable link to these results
