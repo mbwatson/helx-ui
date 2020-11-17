@@ -8,7 +8,6 @@ export const EnvironmentProvider = ({ children }) => {
 
   return (
     <EnvironmentContext.Provider value={{
-      testVariable: process.env.REACT_APP_TEST_ENV_VAR,
       helxSearchUrl: process.env.REACT_APP_HELX_SEARCH_URL,
       context: context,
     }}>
