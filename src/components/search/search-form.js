@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import { Input } from '../input'
 import { Button } from '../button'
 import { useHelxSearch } from './search-context'
 import { InputGroup } from '../input-group'
 
 export const SearchForm = () => {
-  const { query, setQuery, doSearch } = useHelxSearch()
+  const { query, doSearch } = useHelxSearch()
   const [searchTerm, setSearchTerm] = useState(query)
 
   const handleChangeQuery = event => setSearchTerm(event.target.value)

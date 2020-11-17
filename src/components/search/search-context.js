@@ -22,14 +22,14 @@ export const HelxSearch = ({ children }) => {
   const [results, setResults] = useState([])
   const [totalResults, setTotalResults] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
+  const [pageCount, setPageCount] = useState(0)
   const navigate = useNavigate()
-  const perPage = PER_PAGE
   
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
     setQuery(queryParams.get('q') || '')
     setCurrentPage(+queryParams.get('p') || 1)
-  }, [window.location.href])
+  }, [window.location.search])
 
   useEffect(() => {
     const fetchResults = async () => {
@@ -38,8 +38,8 @@ export const HelxSearch = ({ children }) => {
         const params = {
           index: 'test',
           query: query,
-          offset: (currentPage - 1) * perPage,
-          size: perPage,
+          offset: (currentPage - 1) * PER_PAGE,
+          size: PER_PAGE,
         }
         const response = await axios.post(helxSearchUrl, params)
         // TODO: fixing total_items in API response will fix the pagination/total_items mismatch
@@ -59,6 +59,10 @@ export const HelxSearch = ({ children }) => {
     fetchResults()
   }, [query, currentPage, helxSearchUrl, setResults, setError])
 
+  useEffect(() => {
+    setPageCount(Math.ceil(totalResults / PER_PAGE))
+  }, [totalResults])
+
   const doSearch = queryString => {
     const trimmedQuery = queryString.trim()
     if (trimmedQuery !== '') {
@@ -69,7 +73,7 @@ export const HelxSearch = ({ children }) => {
   }
 
   return (
-    <HelxSearchContext.Provider value={{ query, setQuery, error, isLoadingResults, results, totalResults, currentPage, setCurrentPage, perPage, doSearch }}>
+    <HelxSearchContext.Provider value={{ query, setQuery, error, isLoadingResults, results, totalResults, currentPage, setCurrentPage, perPage: PER_PAGE, pageCount, doSearch }}>
       { children }
     </HelxSearchContext.Provider>
   )

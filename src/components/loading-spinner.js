@@ -5,6 +5,7 @@ import styled, { keyframes, useTheme } from 'styled-components'
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin: 2rem;
 `
 
 const revolve = keyframes`
