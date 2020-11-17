@@ -49,6 +49,7 @@ export const HelxSearch = ({ children }) => {
           setTotalResults(response.data.result.total_items)
         } else {
           setResults([])
+          setTotalResults(0)
         }
       } catch (error) {
         console.log(error)

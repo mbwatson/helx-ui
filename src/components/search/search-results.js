@@ -36,7 +36,7 @@ export const SearchResults = () => {
   return (
     <Wrapper>
       <Paragraph align="center">
-        { totalResults } results for "{ query }" ({ pageCount } pages)
+        { isLoadingResults ? '...' : totalResults } results for "{ isLoadingResults ? '...' : query }" ({ isLoadingResults ? '...' : pageCount } pages)
       </Paragraph>
 
       <PaginationTray />
