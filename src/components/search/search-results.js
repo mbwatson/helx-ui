@@ -28,6 +28,15 @@ export const SearchResults = () => {
   const theme = useTheme()
   const { query, results, totalResults, perPage, currentPage, pageCount, isLoadingResults, error } = useHelxSearch()
 
+  const MemoizedResultsSummary = useMemo(() => {
+    if (!results) return null
+    return (
+      <Paragraph align="center">
+        { totalResults } results for "{ query }" ({ pageCount } pages)
+      </Paragraph>
+    )
+  }, [query, pageCount])
+
   const MemoizedLink = useMemo(() => (
     <Link to={ `/search?q=${ query }&p=${ currentPage }` } style={{ display: 'inline-flex', alignItems: 'center', color: theme.color.primary.dark }}>
       <Icon icon="link" fill={ theme.color.primary.dark } size={ 24 } style={{ padding: '0 4px 0 0' }} />shareable link to these results
@@ -36,9 +45,8 @@ export const SearchResults = () => {
 
   return (
     <Wrapper>
-      <Paragraph align="center">
-        { isLoadingResults ? '...' : totalResults } results for "{ isLoadingResults ? '...' : query }" ({ isLoadingResults ? '...' : pageCount } pages)
-      </Paragraph>
+
+      { MemoizedResultsSummary }
 
       <PaginationTray />
 

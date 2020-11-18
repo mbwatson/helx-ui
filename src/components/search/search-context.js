@@ -5,7 +5,7 @@ import { useEnvironment } from '../../contexts'
 
 //
 
-export const HelxSearchContext = createContext({})
+export const HelxSearchContext = createContext({ })
 export const useHelxSearch = () => useContext(HelxSearchContext)
 
 //
