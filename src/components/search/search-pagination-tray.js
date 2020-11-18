@@ -19,7 +19,7 @@ const Wrapper = styled.nav(({ theme }) => `
     padding: ${ theme.spacing.extraSmall } ${ theme.spacing.small };
     filter: brightness(1.1);
     border-radius: ${ theme.border.radius };
-    transition: filter 250ms;
+    transition: filter 250ms, background-color 250ms;
   }
   & a:hover {
     filter: brightness(1.0);
