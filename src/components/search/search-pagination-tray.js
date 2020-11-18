@@ -58,6 +58,8 @@ export const PaginationTray = () => {
     setPageCount(Math.ceil(totalResults / perPage))
   }, [totalResults, perPage])
 
+  if (totalResults === 0) return null
+
   return (
     <Wrapper role="navigation" aria-label="Pagination Navigation">
       <PaginationLink to={ `/search?q=${ query }&p=1` } icon="firstPage" disabled={ currentPage <= 1 } aria-label="Go to first page" />

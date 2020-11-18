@@ -1,12 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styled, { keyframes, useTheme } from 'styled-components'
+import styled, { css, keyframes, useTheme } from 'styled-components'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div(({ theme }) => css`
   display: flex;
   justify-content: center;
   margin: 2rem;
-`
+  animation: ${ theme.animation.fadeIn };
+`)
 
 const revolve = keyframes`
   0% {

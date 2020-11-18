@@ -1,5 +1,5 @@
 import React, { Fragment, useMemo } from 'react'
-import styled, { useTheme } from 'styled-components'
+import styled, { css, useTheme } from 'styled-components'
 import { useHelxSearch } from './search-context'
 import { Paragraph } from '../typography'
 import { LoadingSpinner } from '../loading-spinner'
@@ -10,7 +10,7 @@ import { Icon } from '../icon'
 
 const Wrapper = styled.div``
 
-const Meta = styled.div(({ theme }) => `
+const Meta = styled.div(({ theme }) => css`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,6 +21,7 @@ const Meta = styled.div(({ theme }) => `
     justify-content: space-between;
     flex-direction: row;
   }
+  animation: ${ theme.animation.fadeIn };
 `)
 
 export const SearchResults = () => {
@@ -50,16 +51,20 @@ export const SearchResults = () => {
       {
         query && !isLoadingResults && !error.message && (
           <Fragment>
-              <Meta>
-                <div>Results { (currentPage - 1) * perPage + 1 } to { (currentPage - 1) * perPage + results.length } of { totalResults } total results</div>
-                <div>{ MemoizedLink }</div>
-              </Meta>
-              {
-                results.map((result, i) => {
-                  const index = (currentPage - 1) * perPage + i + 1
-                  return <Result key={ `result-${ index }` } index={ index } result={ result } />
-                })
-              }
+            {
+              results.length >= 1 && (
+                <Meta>
+                  <div>Results { (currentPage - 1) * perPage + 1 } to { (currentPage - 1) * perPage + results.length } of { totalResults } total results</div>
+                  <div>{ MemoizedLink }</div>
+                </Meta>
+              )
+            }
+            {
+              results.map((result, i) => {
+                const index = (currentPage - 1) * perPage + i + 1
+                return <Result key={ `result-${ index }` } index={ index } result={ result } />
+              })
+            }
           </Fragment>
         )
       }

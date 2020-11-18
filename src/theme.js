@@ -1,3 +1,15 @@
+import { css, keyframes } from 'styled-components'
+
+const fadeIn = keyframes`
+  0% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+`
+
+const fadeOut = keyframes`
+  0% { opacity: 1.0; }
+  100% { opacity: 0.0; }
+`
+
 export const theme = {
   color: {
     primary: {
@@ -30,6 +42,10 @@ export const theme = {
     md: '1rem', medium: '1rem',
     lg: '2rem', large: '2rem',
     xl: '3rem', extraLarge: '3rem',
+  },
+  animation: {
+    fadeIn: css`${ fadeIn } 500ms ease-out forwards`,
+    fadeOut: css`${ fadeIn } 500ms ease-out reverse forwards`,
   },
   debug: `
     border: 1px solid #f99;

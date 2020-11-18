@@ -5,6 +5,10 @@ export const AuthContext = createContext({ })
 const initialUser = {
   username: 'some user',
   email: 'email@ddr.ess',
+  preferences: {
+    mode: 'light',
+    apps: [],
+  },
 }
 
 export const AuthProvider = ({ children }) => {
