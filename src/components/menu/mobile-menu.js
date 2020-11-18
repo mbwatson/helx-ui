@@ -52,7 +52,7 @@ const MenuItem = styled(Link)(({ theme }) => `
   &:hover, &:focus {
     background-color: ${ theme.color.black  };
   }
-  &.active {
+  &[aria-current] {
     color: ${ theme.color.primary.main }
   }
 `)
@@ -82,7 +82,7 @@ export const MobileMenu = ({ items }) => {
       <Overlay active={ open } onClick={ handleCloseMenu } />
       <Drawer translation={ open ? '0' : '-100%' }>
         <Nav>
-          { items.map(item => <MenuItem key={ item.text } to={ item.path } onClick={ handleCloseMenu } activeClassName="active">{ item.text }</MenuItem>) }
+          { items.map(item => <MenuItem key={ item.text } to={ item.path } onClick={ handleCloseMenu }>{ item.text }</MenuItem>) }
         </Nav>
       </Drawer>
     </Fragment>
