@@ -32,7 +32,7 @@ export const SearchResults = () => {
     if (!results) return null
     return (
       <Paragraph align="center">
-        { totalResults } results for "{ query }" ({ pageCount } pages)
+        { totalResults } results for "{ query }" ({ pageCount } page{ pageCount > 1 && 's' })
       </Paragraph>
     )
   }, [query, pageCount])
