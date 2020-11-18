@@ -14,6 +14,7 @@ export const theme = {
     },
     extended: {
       crimson: '#9e0817',
+      gold: 'gold',
     },
     black: '#181818',
     grey: {

@@ -53,8 +53,8 @@ export const SearchResults = () => {
         auth.user && (
           <IconButton variant="transparent"
             onClick={ auth.saveSearch(query, currentPage) }
-            icon={ auth.user.savedSearches.includes(JSON.stringify({ query, page: currentPage })) ? 'star' : 'starHollow' }
-            fill={ theme.color.primary.dark } size={ 24 }
+            icon="star" size={ 24 }
+            fill={ auth.user.savedSearches.includes(JSON.stringify({ query, page: currentPage })) ? theme.color.extended.gold : theme.color.grey.light  }
           />
           )
       }
