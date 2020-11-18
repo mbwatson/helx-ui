@@ -15,6 +15,10 @@ export const Wrapper = styled.button(({ theme, variant, small }) => `
   overflow: hidden;
   outline: 0;
   transition: filter 250ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: ${ theme.spacing.small };
   &:disabled {
     filter: saturate(0.25);
     border: 1px solid red;

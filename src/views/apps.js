@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import styled, { useTheme } from 'styled-components'
 import { Container } from '../components/layout'
 import { Title, Paragraph } from '../components/typography'
 import { Card } from '../components/card'
 import { ListGrid } from '../components/list'
 import { Button } from '../components/button'
-import { IconButton } from '../components/button'
+import { Icon } from '../components/icon'
 import { Link } from '../components/link'
 import { useEnvironment } from '../contexts'
 
@@ -25,7 +25,7 @@ const Relative = styled.div`
   &:nth-child(3) { z-index: -3; }
 `
 
-const DetailsSlider = styled(Card.Body)(({ theme, visible }) => `
+const ConfigSlider = styled(Card.Body)(({ theme, visible }) => `
   height: 100%;
   transform: translateY(${ visible ? '0' : '100%' });
   background-color: ${ visible ? theme.color.black : theme.color.grey.dark };
@@ -41,36 +41,54 @@ const DetailsSlider = styled(Card.Body)(({ theme, visible }) => `
   & a:hover {
     filter: brightness(0.75);
   }
+  & .actions {
+    position: absolute;
+    right: ${ theme.spacing.medium };
+    bottom: ${ theme.spacing.medium };
+    display: flex;
+    justify-content: flex-end;
+    gap: ${ theme.spacing.medium };
+  }
 `)
 
 const AppCard = ({ name, description, details, docs }) => {
   const theme = useTheme()
   const [flipped, setFlipped] = useState(false)
 
-  const toggleFlipped = event => setFlipped(!flipped)
+  const toggleConfig = event => setFlipped(!flipped)
+  const launchApp = event => alert('Launching app')
 
   return (
-    <Card style={{ minHeight: '300px' }}>
+    <Card style={{ minHeight: '300px', margin: `${ theme.spacing.large } 0` }}>
       <Card.Header>{ name }</Card.Header>
       <Relative>
         <Card.Body>
-          { description }
-        </Card.Body>
-        <DetailsSlider visible={ flipped }>
-          <h5>Details</h5>
+          <Paragraph>{ description }</Paragraph>
           <Paragraph dense>{ details }</Paragraph>
-          <Link to={ docs }>Docs</Link>
-        </DetailsSlider>
+          <Link to={ docs }>App Documentation</Link>
+        </Card.Body>
+        <ConfigSlider visible={ flipped }>
+          <h5>App Config</h5>
+          <ul>
+            <li>Memory: ________ </li>
+            <li>CPUs: ________ </li>
+            <li>GPUs: ________ </li>
+          </ul>
+          <div className="actions">
+            <Button small variant="success" onClick={ () => { launchApp(); toggleConfig(); } }><Icon icon="check" fill="#eee" /> Confirm</Button>
+          </div>
+        </ConfigSlider>
       </Relative>
       <Card.Footer style={{
         display: 'flex',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         backgroundColor: theme.color.grey.dark,
         transition: 'background-color 400ms'
       }}>
-        <Button small variant="success">Launch</Button>
-        <IconButton variant="info" icon="configure" fill={ flipped ? theme.color.white : theme.color.grey.light } size={ 24 } onClick={ toggleFlipped }/>
-        <IconButton variant="info" icon="info" fill={ flipped ? theme.color.white : theme.color.grey.light } size={ 24 } onClick={ toggleFlipped }/>
+        <Button small variant={ flipped ? 'danger' : 'info' } onClick={ toggleConfig }>
+          { flipped ? <Icon icon="close" fill="#eee" /> : <Icon icon="launch" fill="#eee" /> }
+          { flipped ? 'Cancel' : 'Launch App' }
+        </Button>
       </Card.Footer>
     </Card>
   )
@@ -92,7 +110,7 @@ export const Apps = () => {
     <Container>
       <Title>Apps</Title>
 
-      <ListGrid items={ Object.keys(context.apps).sort().map(appKey => <AppCard key={ appKey } { ...context.apps[appKey] } />) } />
+      { Object.keys(context.apps).sort().map(appKey => <AppCard key={ appKey } { ...context.apps[appKey] } />) }
 
     </Container>
   )
