@@ -5,7 +5,7 @@ import { useHelxSearch } from './search-context'
 import { InputGroup } from '../input-group'
 
 export const SearchForm = () => {
-  const { query, doSearch } = useHelxSearch()
+  const { query, doSearch, inputRef } = useHelxSearch()
   const [searchTerm, setSearchTerm] = useState(query)
 
   const handleChangeQuery = event => setSearchTerm(event.target.value)
@@ -25,7 +25,7 @@ export const SearchForm = () => {
 
   return (
     <InputGroup>
-      <Input value={ searchTerm } onChange={ handleChangeQuery } onKeyDown={ handleKeyDown } style={{ flex: 1 }} />
+      <Input ref={ inputRef } value={ searchTerm } onChange={ handleChangeQuery } onKeyDown={ handleKeyDown } style={{ flex: 1 }} />
       <Button small onClick={ () => doSearch(searchTerm) }>Search</Button>
     </InputGroup>
   )

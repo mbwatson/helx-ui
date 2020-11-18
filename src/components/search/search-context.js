@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from '@reach/router'
 import { useEnvironment } from '../../contexts'
@@ -23,7 +23,23 @@ export const HelxSearch = ({ children }) => {
   const [totalResults, setTotalResults] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageCount, setPageCount] = useState(0)
+  const inputRef = useRef()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    // this lets the user press backslash to jump focus to the search box
+    const handleKeyPress = event => {
+      if (event.keyCode === 220) { // backslash ("\") key 
+        if (inputRef.current) {
+          event.preventDefault()
+          inputRef.current.focus()
+          window.scroll({ top: 40 })
+        }
+      }
+    }
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [])
   
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
@@ -74,7 +90,7 @@ export const HelxSearch = ({ children }) => {
   }
 
   return (
-    <HelxSearchContext.Provider value={{ query, setQuery, error, isLoadingResults, results, totalResults, currentPage, setCurrentPage, perPage: PER_PAGE, pageCount, doSearch }}>
+    <HelxSearchContext.Provider value={{ query, setQuery, error, isLoadingResults, results, totalResults, currentPage, setCurrentPage, perPage: PER_PAGE, pageCount, doSearch, inputRef }}>
       { children }
     </HelxSearchContext.Provider>
   )
