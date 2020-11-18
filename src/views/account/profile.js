@@ -1,6 +1,8 @@
 import React from 'react'
 import { Container } from '../../components/layout'
 import { Title, Heading, Subheading, Paragraph } from '../../components/typography'
+import { List } from '../../components/list'
+import { Link } from '../../components/link'
 import { Button } from '../../components/button'
 import { useAuth } from '../../contexts'
 
@@ -30,12 +32,15 @@ export const Profile = () => {
         tempor incididunt ut labore et dolore magna aliqua.
       </Paragraph>
 
-      <strong>Mode</strong> { auth.user.preferences.mode }
+      <h3>Saved Searches</h3>
 
-      <br />
-
-      <strong>Apps</strong>
-      ...
+      <List bullets="disc" items={
+        auth.user.savedSearches.map(item => {
+          const { query, page } = JSON.parse(item)
+          const itemUrl = `/search?q=${ query }&p=${ page }`
+          return <div key={ item }>"{ query }" - page { page } - <Link to={ itemUrl }>{ itemUrl }</Link></div>
+        })
+      } />
 
       <Subheading>Another Section</Subheading>
       <Paragraph>

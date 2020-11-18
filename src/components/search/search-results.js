@@ -1,12 +1,14 @@
 import React, { Fragment, useMemo } from 'react'
 import styled, { css, useTheme } from 'styled-components'
 import { useHelxSearch } from './search-context'
+import { useAuth } from '../../contexts'
 import { Paragraph } from '../typography'
 import { LoadingSpinner } from '../loading-spinner'
 import { Result } from './search-result'
 import { PaginationTray } from './search-pagination-tray'
 import { Link } from '../link'
 import { Icon } from '../icon'
+import { IconButton } from '../button'
 
 const Wrapper = styled.div``
 
@@ -30,6 +32,7 @@ const Meta = styled.div(({ theme, underline, overline }) => css`
 
 export const SearchResults = () => {
   const theme = useTheme()
+  const auth = useAuth()
   const { query, results, totalResults, perPage, currentPage, pageCount, isLoadingResults, error } = useHelxSearch()
 
   const MemoizedResultsSummary = useMemo(() => {
@@ -39,13 +42,24 @@ export const SearchResults = () => {
         { totalResults } results for "{ query }" ({ pageCount } page{ pageCount > 1 && 's' })
       </Paragraph>
     )
-  }, [query, pageCount])
+  }, [query, pageCount, results, totalResults])
 
-  const MemoizedLink = useMemo(() => (
-    <Link to={ `/search?q=${ query }&p=${ currentPage }` } style={{ display: 'inline-flex', alignItems: 'center', color: theme.color.primary.dark }}>
-      <Icon icon="link" fill={ theme.color.primary.dark } size={ 24 } style={{ padding: '0 4px 0 0' }} />shareable link to these results
-    </Link>
-  ), [query, currentPage, theme.color.primary.dark])
+  const MemoizedActions = useMemo(() => (
+    <Fragment>
+      <Link to={ `/search?q=${ query }&p=${ currentPage }` } style={{ display: 'inline-flex', alignItems: 'center', color: theme.color.primary.dark }}>
+        <Icon icon="link" fill={ theme.color.primary.dark } size={ 24 } style={{ padding: '0 4px 0 0' }} />
+      </Link>
+      {
+        auth.user && (
+          <IconButton variant="transparent"
+            onClick={ auth.saveSearch(query, currentPage) }
+            icon={ auth.user.savedSearches.includes(JSON.stringify({ query, page: currentPage })) ? 'star' : 'starHollow' }
+            fill={ theme.color.primary.dark } size={ 24 }
+          />
+          )
+      }
+    </Fragment>
+  ), [query, currentPage, auth, theme.color.primary.dark])
 
   return (
     <Wrapper>
@@ -67,7 +81,9 @@ export const SearchResults = () => {
               results.length >= 1 && (
                 <Meta underline>
                   <div>Results { (currentPage - 1) * perPage + 1 } to { (currentPage - 1) * perPage + results.length } of { totalResults } total results</div>
-                  <div>{ MemoizedLink }</div>
+                  <div>
+                    { MemoizedActions }
+                  </div>
                 </Meta>
               )
             }
@@ -81,7 +97,7 @@ export const SearchResults = () => {
               results.length >= 1 && (
                 <Meta overline>
                   <div>Results { (currentPage - 1) * perPage + 1 } to { (currentPage - 1) * perPage + results.length } of { totalResults } total results</div>
-                  <div>{ MemoizedLink }</div>
+                  <div>{ MemoizedActions }</div>
                 </Meta>
               )
             }

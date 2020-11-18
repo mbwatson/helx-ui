@@ -21,6 +21,7 @@ export const theme = {
       main: '#999',
       dark: '#555',
     },
+    transparent: 'transparent',
     white: '#f1f2f3',
     success: '#7ebb9b',
     info: '#49a0d9',
