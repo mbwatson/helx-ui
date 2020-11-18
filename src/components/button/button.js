@@ -14,7 +14,7 @@ export const Wrapper = styled.button(({ theme, variant, small }) => `
   position: relative;
   overflow: hidden;
   outline: 0;
-  transition: filter 250ms;
+  transition: filter 250ms, background-color 250ms;
   display: flex;
   justify-content: center;
   align-items: center;

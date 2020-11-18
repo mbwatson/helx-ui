@@ -18,9 +18,9 @@ const Wrapper = styled.div(({ theme }) => `
 `)
 
 const CardHeader = styled.header(({ theme }) => `
-  background-color: ${ theme.color.grey.light };
+  background-color: ${ theme.color.white };
   padding: ${ theme.spacing.medium };
-  font-weight: bold;
+  font-size: 120%;
 `)
 
 const CardBody = styled.div(({ theme }) => `

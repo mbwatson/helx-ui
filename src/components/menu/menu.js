@@ -21,12 +21,16 @@ const MenuItem = styled(Link)(({ theme }) => `
   height: 100%;
   padding: ${ theme.spacing.medium };
   text-transform: uppercase;
-  transition: background-color 250ms, color 250ms;
+  border-width: 2px 0 2px 0;
+  border-style: solid;
+  border-color: transparent;
+  transition: background-color 250ms, color 250ms, border-color 250ms;
   &:hover, &:focus {
     background-color: ${ theme.color.grey.light };
   }
   &[aria-current] {
     background-color: ${ theme.color.grey.light };
+    border-bottom-color: ${ theme.color.grey.dark };
   }
 `)
 

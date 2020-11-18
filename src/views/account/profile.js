@@ -32,7 +32,7 @@ export const Profile = () => {
         tempor incididunt ut labore et dolore magna aliqua.
       </Paragraph>
 
-      <h3>Saved Searches</h3>
+      <h3>Saved Searches ({ auth.user.savedSearches.length })</h3>
 
       <List bullets="disc" items={
         auth.user.savedSearches.map(item => {

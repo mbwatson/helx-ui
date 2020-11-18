@@ -75,19 +75,19 @@ const AppCard = ({ name, description, details, docs }) => {
             <li>GPUs: ________ </li>
           </ul>
           <div className="actions">
-            <Button small variant="success" onClick={ () => { launchApp(); toggleConfig(); } }><Icon icon="check" fill="#eee" /> Confirm</Button>
+            <Button small variant="success" onClick={ () => { launchApp(); toggleConfig(); } } style={{ width: '150px' }}>
+              <Icon icon="check" fill="#eee" /> Confirm
+            </Button>
           </div>
         </ConfigSlider>
       </Relative>
       <Card.Footer style={{
         display: 'flex',
         justifyContent: 'flex-end',
-        backgroundColor: theme.color.grey.dark,
         transition: 'background-color 400ms'
       }}>
-        <Button small variant={ flipped ? 'danger' : 'info' } onClick={ toggleConfig }>
-          { flipped ? <Icon icon="close" fill="#eee" /> : <Icon icon="launch" fill="#eee" /> }
-          { flipped ? 'Cancel' : 'Launch App' }
+        <Button small variant={ flipped ? 'danger' : 'info' } onClick={ toggleConfig } style={{ width: '150px' }}>
+          <Icon icon={ flipped ? 'close' : 'launch' } fill="#eee" />{ flipped ? 'Cancel' : 'Launch App' }
         </Button>
       </Card.Footer>
     </Card>
