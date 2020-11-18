@@ -10,13 +10,17 @@ import { Icon } from '../icon'
 
 const Wrapper = styled.div``
 
-const Meta = styled.div(({ theme }) => css`
+const Meta = styled.div(({ theme, underline, overline }) => css`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid ${ theme.color.grey.light };
-  margin-bottom: ${ theme.spacing.xl };
+  border-width: 0;
+  border-top-width: ${ overline ? '1px' : 0 };
+  border-bottom-width: ${ underline ? '1px' : 0 };
+  border-style: solid;
+  border-color: ${ theme.color.grey.light };
+  margin: ${ theme.spacing.xl } 0;
   @media (min-width: 600px) {
     justify-content: space-between;
     flex-direction: row;
@@ -61,7 +65,7 @@ export const SearchResults = () => {
           <Fragment>
             {
               results.length >= 1 && (
-                <Meta>
+                <Meta underline>
                   <div>Results { (currentPage - 1) * perPage + 1 } to { (currentPage - 1) * perPage + results.length } of { totalResults } total results</div>
                   <div>{ MemoizedLink }</div>
                 </Meta>
@@ -72,6 +76,14 @@ export const SearchResults = () => {
                 const index = (currentPage - 1) * perPage + i + 1
                 return <Result key={ `result-${ index }` } index={ index } result={ result } />
               })
+            }
+            {
+              results.length >= 1 && (
+                <Meta overline>
+                  <div>Results { (currentPage - 1) * perPage + 1 } to { (currentPage - 1) * perPage + results.length } of { totalResults } total results</div>
+                  <div>{ MemoizedLink }</div>
+                </Meta>
+              )
             }
           </Fragment>
         )
