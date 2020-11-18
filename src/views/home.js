@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container } from '../components/layout'
 import { Title, Paragraph } from '../components/typography'
 import { Tooltip } from '../components/tooltip'
@@ -7,6 +7,7 @@ export const Home = () => {
   return (
     <Container>
       <Title>Home</Title>
+
       <Paragraph>
         Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
