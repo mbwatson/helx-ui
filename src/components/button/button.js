@@ -25,7 +25,7 @@ export const Wrapper = styled.button(({ theme, variant, small }) => `
     cursor: default;
   }
   &:not(:disabled):hover {
-    filter: brightness(1.1);
+    filter: brightness(0.9);
   }
   &:not(:disabled):active, &:not(:disabled):focus {
     filter: drop-shadow(0 0 4px ${ variant ? theme.color[variant] : theme.color.primary.main }cc);
