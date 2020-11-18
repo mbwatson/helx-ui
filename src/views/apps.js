@@ -69,6 +69,7 @@ const AppCard = ({ name, description, details, docs }) => {
         transition: 'background-color 400ms'
       }}>
         <Button small variant="success">Launch</Button>
+        <IconButton variant="info" icon="configure" fill={ flipped ? theme.color.white : theme.color.grey.light } size={ 24 } onClick={ toggleFlipped }/>
         <IconButton variant="info" icon="info" fill={ flipped ? theme.color.white : theme.color.grey.light } size={ 24 } onClick={ toggleFlipped }/>
       </Card.Footer>
     </Card>
