@@ -9,6 +9,7 @@ import { PaginationTray } from './search-pagination-tray'
 import { Link } from '../link'
 import { Icon } from '../icon'
 import { IconButton } from '../button'
+import { Tooltip } from '../tooltip'
 
 const Wrapper = styled.div``
 
@@ -46,16 +47,20 @@ export const SearchResults = () => {
 
   const MemoizedActions = useMemo(() => (
     <Fragment>
-      <Link to={ `/search?q=${ query }&p=${ currentPage }` } style={{ display: 'inline-flex', alignItems: 'center', color: theme.color.primary.dark }}>
-        <Icon icon="link" fill={ theme.color.primary.dark } size={ 24 } style={{ padding: '0 4px 0 0' }} />
-      </Link>
+      <Tooltip tip="Shareable link" placement="top">
+        <Link to={ `/search?q=${ query }&p=${ currentPage }` } style={{ display: 'inline-flex', alignItems: 'center', color: theme.color.primary.dark }}>
+          <Icon icon="link" fill={ theme.color.primary.dark } size={ 24 } style={{ padding: '0 4px 0 0' }} />
+        </Link>
+      </Tooltip>
       {
         auth.user && (
-          <IconButton variant="transparent"
-            onClick={ auth.saveSearch(query, currentPage) }
-            icon="star" size={ 24 }
-            fill={ auth.user.savedSearches.includes(JSON.stringify({ query, page: currentPage })) ? theme.color.extended.gold : theme.color.grey.light  }
-          />
+          <Tooltip tip="Save results" placement="top"> 
+            <IconButton variant="transparent"
+              onClick={ auth.saveSearch(query, currentPage) }
+              icon="star" size={ 24 }
+              fill={ auth.user.savedSearches.includes(JSON.stringify({ query, page: currentPage })) ? theme.color.extended.gold : theme.color.grey.light  }
+            />
+          </Tooltip>
           )
       }
     </Fragment>

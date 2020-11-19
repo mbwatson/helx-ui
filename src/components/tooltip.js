@@ -67,9 +67,9 @@ export const Tooltip = ({ tip, placement, children }) => {
     if (placement === 'top') {
         ThisTip = TopTip
         tipTransition = ({
-            from: { ...globalFromStyle, bottom: `150%` },
-            enter: { ...globalEnterStyle, bottom: `110%` },
-            leave: { ...globalLeaveStyle, bottom: `150%` },
+            from: { ...globalFromStyle, bottom: `200%` },
+            enter: { ...globalEnterStyle, bottom: `180%` },
+            leave: { ...globalLeaveStyle, bottom: `200%` },
         })
     }
     if (placement === 'bottom') {
@@ -99,7 +99,7 @@ export const Tooltip = ({ tip, placement, children }) => {
 
     const transitions = useTransition(active, null, tipTransition)
 
-    useEffect(() => { setStringPixelWidth(tip.length * 16) }, [tip])
+    useEffect(() => { setStringPixelWidth(tip.length * 10) }, [tip])
 
     const handleShowTooltip = event => setActive(true)
     const handleHideTooltip = event => setActive(false)
