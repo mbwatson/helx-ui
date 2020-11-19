@@ -75,7 +75,7 @@ export const SearchResults = () => {
 
       <br/>
 
-      { isLoadingResults && <LoadingSpinner /> }
+      { isLoadingResults && <LoadingSpinner style={{ margin: theme.spacing.extraLarge }} /> }
 
       { !isLoadingResults && error && <span>{ error.message }</span> }
 
