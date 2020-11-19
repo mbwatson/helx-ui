@@ -32,7 +32,7 @@ export const HelxSearch = ({ children }) => {
       if (event.keyCode === 220) { // backslash ("\") key 
         if (inputRef.current) {
           event.preventDefault()
-          inputRef.current.focus()
+          inputRef.current.select()
           window.scroll({ top: 40 })
         }
       }
