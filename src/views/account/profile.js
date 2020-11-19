@@ -9,31 +9,18 @@ import { Icon } from '../../components/icon'
 import { useAuth } from '../../contexts'
 
 function timeSince(date) {
-
-  var seconds = Math.floor((new Date() - date) / 1000);
-
-  var interval = seconds / 31536000;
-
-  if (interval > 1) {
-    return Math.floor(interval) + " years";
-  }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " months";
-  }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " days";
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + " hours";
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " minutes";
-  }
-  return Math.floor(seconds) + " seconds";
+  const seconds = Math.floor((new Date() - date) / 1000)
+  let interval = seconds / 31536000
+  if (interval > 1) { return Math.floor(interval) + ` years ago` }
+  interval = seconds / 2592000
+  if (interval > 1) { return Math.floor(interval) + ` months ago` }
+  interval = seconds / 86400
+  if (interval > 1) { return Math.floor(interval) + ` days ago` }
+  interval = seconds / 3600
+  if (interval > 1) { return Math.floor(interval) + ` hours ago` }
+  interval = seconds / 60
+  if (interval > 1) { return Math.floor(interval) + ` minutes ago` }
+  return Math.floor(seconds) + ` seconds ago`
 }
 
 export const Profile = () => {
@@ -93,7 +80,8 @@ export const Profile = () => {
               <Link to={ itemUrl }>
                 "{ query }"
               </Link>
-              &nbsp;&nbsp;<em>({ relativeTime } ago)</em>
+              &nbsp;&nbsp;
+              <em>({ relativeTime })</em>
             </div>
           )
         })
