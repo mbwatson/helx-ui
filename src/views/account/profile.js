@@ -1,12 +1,43 @@
 import React from 'react'
+import { useTheme } from 'styled-components'
 import { Container } from '../../components/layout'
 import { Title, Heading, Subheading, Paragraph } from '../../components/typography'
 import { List } from '../../components/list'
 import { Link } from '../../components/link'
 import { Button } from '../../components/button'
+import { Icon } from '../../components/icon'
 import { useAuth } from '../../contexts'
 
+function timeSince(date) {
+
+  var seconds = Math.floor((new Date() - date) / 1000);
+
+  var interval = seconds / 31536000;
+
+  if (interval > 1) {
+    return Math.floor(interval) + " years";
+  }
+  interval = seconds / 2592000;
+  if (interval > 1) {
+    return Math.floor(interval) + " months";
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    return Math.floor(interval) + " days";
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    return Math.floor(interval) + " hours";
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    return Math.floor(interval) + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
+}
+
 export const Profile = () => {
+  const theme = useTheme()
   const auth = useAuth()
   return (
     <Container>
@@ -34,21 +65,37 @@ export const Profile = () => {
 
       <h3>Favorite Searches ({ auth.user.search.favorites.length })</h3>
 
-      <List bullets="disc" items={
+      <List items={
         auth.user.search.favorites.map(item => {
           const { query, page } = JSON.parse(item)
           const itemUrl = `/search?q=${ query }&p=${ page }`
-          return <div key={ item }>"{ query }" - page { page } - <Link to={ itemUrl }>{ itemUrl }</Link></div>
+          return (
+            <div key={ `${ item.query }-${ item.page }` } style={{ display: 'flex', alignItems: 'flex-start' }}>
+              <Icon icon="link" fill={ theme.color.primary.dark } size={ 14 } /> &nbsp;&nbsp;
+              <Link to={ itemUrl }>
+                <em>{ query }</em>, page { page }
+              </Link>
+            </div>
+          )
         })
       } />
 
       <h3>Search History</h3>
 
-      <List bullets="disc" items={
+      <List items={
         auth.user.search.history.map(item => {
           const { query, timestamp } = JSON.parse(item)
           const itemUrl = `/search?q=${ query }`
-          return <div key={ `${ timestamp }-${ query }` }>{ timestamp } - "{ query }" - <Link to={ itemUrl }>{ itemUrl }</Link></div>
+          const relativeTime = timeSince(new Date(timestamp))
+          return (
+            <div key={ `${ timestamp }-${ query }` } style={{ display: 'flex', alignItems: 'flex-start' }}>
+              <Icon icon="link" fill={ theme.color.primary.dark } size={ 14 } /> &nbsp;&nbsp;
+              <Link to={ itemUrl }>
+                "{ query }"
+              </Link>
+              &nbsp;&nbsp;<em>({ relativeTime } ago)</em>
+            </div>
+          )
         })
       } />
 
