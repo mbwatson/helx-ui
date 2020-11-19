@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
+const HISTORY_SIZE = 10
+
 export const AuthContext = createContext({ })
 
 const initialUser = {
@@ -9,11 +11,14 @@ const initialUser = {
     mode: 'light',
     apps: [],
   },
-  savedSearches: [
-    "{\"query\":\"heart\",\"page\":1}",
-    "{\"query\":\"lung\",\"page\":1}",
-    "{\"query\":\"blood\",\"page\":3}"
-  ],
+  search: {
+    favorites: [
+      "{\"query\":\"heart\",\"page\":1}",
+      "{\"query\":\"lung\",\"page\":1}",
+      "{\"query\":\"blood\",\"page\":3}"
+    ],
+    history: [],
+  },
 }
 
 export const AuthProvider = ({ children }) => {
@@ -29,22 +34,45 @@ export const AuthProvider = ({ children }) => {
     setUser(null)
   }
 
-  const saveSearchHandler = (query, page) => event => {
+  const favoriteSearchHandler = (query, page) => event => {
     const searchData = JSON.stringify({ query, page })
-    let newSavedSearches = [...user.savedSearches]
+    let newSavedSearches = [...user.search.favorites]
     const index = newSavedSearches.indexOf(searchData)
     if (index > -1) {
       // found? remove it
-      newSavedSearches = [...newSavedSearches.slice(0, index), ...user.savedSearches.slice(index + 1)]
+      newSavedSearches = [...newSavedSearches.slice(0, index), ...user.search.favorites.slice(index + 1)]
     } else {
       // not found? add it
       newSavedSearches = [...newSavedSearches, searchData]
     }
-    setUser({ ...user, savedSearches: newSavedSearches })
+    setUser({
+      ...user,
+      search: {
+        ...user.search,
+        favorites: newSavedSearches,
+      },
+    })
+  }
+
+  const updateSearchHistory = query => {
+    if (user) {
+      const newSearchItem = {
+        query: query,
+        timestamp: new Date()
+      }
+      const newSearchHistory = [JSON.stringify(newSearchItem), ...user.search.history].slice(0, HISTORY_SIZE)
+      setUser({
+        ...user,
+        search: {
+          ...user.search,
+          history: newSearchHistory,
+        },
+      })
+    }
   }
 
   return (
-    <AuthContext.Provider value={{ user: user, login: loginHandler, logout: logoutHandler, saveSearch: saveSearchHandler }}>
+    <AuthContext.Provider value={{ user: user, login: loginHandler, logout: logoutHandler, saveSearch: favoriteSearchHandler, updateSearchHistory }}>
       { children }
     </AuthContext.Provider>
   )

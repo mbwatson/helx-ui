@@ -58,7 +58,7 @@ export const SearchResults = () => {
             <IconButton variant="transparent"
               onClick={ auth.saveSearch(query, currentPage) }
               icon="star" size={ 24 }
-              fill={ auth.user.savedSearches.includes(JSON.stringify({ query, page: currentPage })) ? theme.color.extended.gold : theme.color.grey.light  }
+              fill={ auth.user.search.favorites.includes(JSON.stringify({ query, page: currentPage })) ? theme.color.extended.gold : theme.color.grey.light  }
             />
           </Tooltip>
           )

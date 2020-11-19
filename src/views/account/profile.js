@@ -32,13 +32,23 @@ export const Profile = () => {
         tempor incididunt ut labore et dolore magna aliqua.
       </Paragraph>
 
-      <h3>Saved Searches ({ auth.user.savedSearches.length })</h3>
+      <h3>Favorite Searches ({ auth.user.search.favorites.length })</h3>
 
       <List bullets="disc" items={
-        auth.user.savedSearches.map(item => {
+        auth.user.search.favorites.map(item => {
           const { query, page } = JSON.parse(item)
           const itemUrl = `/search?q=${ query }&p=${ page }`
           return <div key={ item }>"{ query }" - page { page } - <Link to={ itemUrl }>{ itemUrl }</Link></div>
+        })
+      } />
+
+      <h3>Search History</h3>
+
+      <List bullets="disc" items={
+        auth.user.search.history.map(item => {
+          const { query, timestamp } = JSON.parse(item)
+          const itemUrl = `/search?q=${ query }`
+          return <div key={ `${ timestamp }-${ query }` }>{ timestamp } - "{ query }" - <Link to={ itemUrl }>{ itemUrl }</Link></div>
         })
       } />
 

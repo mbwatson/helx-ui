@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from '@reach/router'
-import { useEnvironment } from '../../contexts'
+import { useAuth, useEnvironment } from '../../contexts'
 
 //
 
@@ -23,6 +23,7 @@ export const HelxSearch = ({ children }) => {
   const [totalResults, setTotalResults] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageCount, setPageCount] = useState(0)
+  const auth = useAuth()
   const inputRef = useRef()
   const navigate = useNavigate()
 
@@ -85,6 +86,7 @@ export const HelxSearch = ({ children }) => {
     if (trimmedQuery !== '') {
       setQuery(trimmedQuery)
       setCurrentPage(1)
+      auth.updateSearchHistory(trimmedQuery)
       navigate(`/search?q=${ trimmedQuery }&p=1`)
     }
   }
