@@ -9,6 +9,7 @@ export const EnvironmentProvider = ({ children }) => {
   return (
     <EnvironmentContext.Provider value={{
       helxSearchUrl: process.env.REACT_APP_HELX_SEARCH_URL,
+      helxAppstoreUrl: process.env.REACT_APP_HELX_APPSTORE_URL,
       context: context,
     }}>
       { children }

@@ -1,8 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
+import axios from 'axios';
+import { useEnvironment } from './environment-context';
 
 const HISTORY_SIZE = 10
 
 export const AuthContext = createContext({ })
+
+
 
 const initialUser = {
   username: 'some user',
@@ -19,14 +23,32 @@ const initialUser = {
     ],
     history: [],
   },
+  refesh_token: '',
+  access_token: ''
 }
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(initialUser)
+  const helxAppstoreUrl = useEnvironment().helxAppstoreUrl;
+  const [user, setUser] = useState();
 
-  const loginHandler = () => {
+  const loginHandler = async (credentials) => {
     console.log('Logging in...')
-    setUser(initialUser)
+    const login_response = await axios({
+      method: 'POST',
+      url: `${helxAppstoreUrl}/api/token/`,
+      data:{
+      username: credentials[0],
+      password: credentials[1]
+    }
+  }).then(res => {
+      let loggedInUser = JSON.parse(JSON.stringify(initialUser));
+      loggedInUser.refesh_token = res.data.refesh;
+      loggedInUser.access_token = res.data.access;
+      loggedInUser.username = credentials[0];
+      setUser(loggedInUser);
+    }).catch(e => {
+      alert("Username and password does not match. Please try again.")
+    })
   }
 
   const logoutHandler = () => {
