@@ -7,7 +7,7 @@ const HISTORY_SIZE = 10
 export const AuthContext = createContext({ })
 
 
-
+// add two token fields in user data model
 const initialUser = {
   username: 'some user',
   email: 'email@ddr.ess',
@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
   const helxAppstoreUrl = useEnvironment().helxAppstoreUrl;
   const [user, setUser] = useState();
 
+  // call the /api/token endpoint, and store tokens in user's data model
   const loginHandler = async (credentials) => {
     console.log('Logging in...')
     const login_response = await axios({

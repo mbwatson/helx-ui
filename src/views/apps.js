@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from 'react'
+import axios from 'axios';
 import styled, { useTheme } from 'styled-components'
 import { Container } from '../components/layout'
 import { Title, Paragraph } from '../components/typography'
@@ -60,14 +61,19 @@ const SpecsInput = styled(Input)`
 
 const AppCard = ({ name, description, details, docs }) => {
   const theme = useTheme()
+  const helxAppstoreUrl = useEnvironment().helxAppstoreUrl;
   const [flipped, setFlipped] = useState(false)
 
-  const [currentMemory, setMemory] = useState();
-  const [currentCpu, setCpu] = useState();
-  const [currentGpu, setGpu] = useState();
+//create 3 state variables to store specs information
+  const [currentMemory, setMemory] = useState(0);
+  const [currentCpu, setCpu] = useState(0);
+  const [currentGpu, setGpu] = useState(0);
 
   const toggleConfig = event => setFlipped(!flipped)
+
+  //app can be launched here using axios to hit the /start endpoint
   const launchApp = event => {
+    axios()
     alert(`Launching ${name} with ${currentCpu} CPU core, ${currentGpu} GPU Core and ${currentMemory} GB Memory.`)
   }
   const gpuSpecs = [];
