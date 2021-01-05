@@ -73,7 +73,16 @@ const AppCard = ({ name, description, details, docs }) => {
 
   //app can be launched here using axios to hit the /start endpoint
   const launchApp = event => {
-    axios()
+    axios({
+      method: 'GET',
+      url: `${helxAppstoreUrl}start/`,
+      params:{
+        app_id: name,
+        cpu: currentCpu,
+        memory: currentMemory,
+        gpu: currentGpu
+      }
+    })
     alert(`Launching ${name} with ${currentCpu} CPU core, ${currentGpu} GPU Core and ${currentMemory} GB Memory.`)
   }
   const gpuSpecs = [];
