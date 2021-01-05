@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     console.log('Logging in...')
     const login_response = await axios({
       method: 'POST',
-      url: `${helxAppstoreUrl}/api/token/`,
+      url: `${helxAppstoreUrl}api/token/`,
       data:{
       username: credentials[0],
       password: credentials[1]
@@ -48,6 +48,7 @@ export const AuthProvider = ({ children }) => {
       loggedInUser.username = credentials[0];
       setUser(loggedInUser);
     }).catch(e => {
+      console.log(e);
       alert("Username and password does not match. Please try again.")
     })
   }
