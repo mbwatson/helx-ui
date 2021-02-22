@@ -4,11 +4,10 @@ import { useEnvironment } from './environment-context';
 
 const HISTORY_SIZE = 10
 
-export const AuthContext = createContext({ })
+export const AuthContext = createContext({})
 
 
-// add two token fields in user data model
-const initialUser = {
+let initialUser = {
   username: 'some user',
   email: 'email@ddr.ess',
   preferences: {
@@ -23,38 +22,72 @@ const initialUser = {
     ],
     history: [],
   },
-  refesh_token: '',
-  access_token: ''
+  refresh_token: "",
+  access_token: "",
+  context: "",
+  branding: ""
 }
 
+
 export const AuthProvider = ({ children }) => {
-  const helxAppstoreUrl = useEnvironment().helxAppstoreUrl;
-  const [user, setUser] = useState();
+  const environment = useEnvironment();
+  const helxAppstoreUrl = environment.helxAppstoreUrl;
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('loggedInUser')));
 
   // call the /api/token endpoint, and store tokens in user's data model
   const loginHandler = async (credentials) => {
     console.log('Logging in...')
-    const login_response = await axios({
-      method: 'POST',
-      url: `${helxAppstoreUrl}api/token/`,
-      data:{
-      username: credentials[0],
-      password: credentials[1]
+    let loggedInUser = JSON.parse(JSON.stringify(initialUser));
+
+    let response = {
+      "message": "Authentication successful.",
+      "data": {
+        "refresh_token": "samplerefreshtoken",
+        "access_token": "sampleaccesstoken",
+        "metadata": {
+          "context": "braini",
+          "branding": "BRAIN-I App Registry",
+          "logo_name": "BRAIN-I_app_logo",
+          "logo_path": ""
+        }
+      }
     }
-  }).then(res => {
-      let loggedInUser = JSON.parse(JSON.stringify(initialUser));
-      loggedInUser.refesh_token = res.data.refesh;
-      loggedInUser.access_token = res.data.access;
-      loggedInUser.username = credentials[0];
-      setUser(loggedInUser);
-    }).catch(e => {
-      console.log(e);
-      alert("Username and password does not match. Please try again.")
-    })
+
+    loggedInUser.refresh_token = response.refresh_token;
+    loggedInUser.access_token = response.access_token;
+    loggedInUser.username = credentials[0];
+    loggedInUser.context = response.data.metadata.context;
+    loggedInUser.branding = response.data.metadata.branding;
+    console.log(loggedInUser);
+    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+    setUser(loggedInUser);
+
+    environment.updateContext(response.data.metadata.context, response.data.metadata.branding);
+    //   const login_response = await axios({
+    //     method: 'POST',
+    //     url: `${helxAppstoreUrl}/api-token-auth/`,
+    //     data:{
+    //     username: credentials[0],
+    //     password: credentials[1]
+    //   }
+    // }).then(res => {
+    //     let loggedInUser = JSON.parse(JSON.stringify(initialUser));
+    //     loggedInUser.refesh_token = res.data.refesh;
+    //     loggedInUser.access_token = res.data.access;
+    //     localStorage.setItem('refresh_token', res.data.refresh);
+    //     localStorage.setItem('access_token', res.data.access);
+    //     loggedInUser.username = credentials[0];
+    //     setUser(loggedInUser);
+    //   }).catch(e => {
+    //     console.log(e);
+    //     alert("Username and password does not match. Please try again.")
+    //   })
   }
 
   const logoutHandler = () => {
-    console.log('Logging out...')
+    console.log('Logging out...');
+    localStorage.removeItem('loggedInUser')
+    environment.updateContext("common", "HeLx Common App Registry");
     setUser(null)
   }
 
@@ -97,7 +130,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider value={{ user: user, login: loginHandler, logout: logoutHandler, saveSearch: favoriteSearchHandler, updateSearchHistory }}>
-      { children }
+      { children}
     </AuthContext.Provider>
   )
 }
