@@ -53,7 +53,7 @@ export const HelxSearch = ({ children }) => {
       setIsLoadingResults(true)
       try {
         const params = {
-          index: 'test',
+          index: 'concepts_index',
           query: query,
           offset: (currentPage - 1) * PER_PAGE,
           size: PER_PAGE,
