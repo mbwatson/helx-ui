@@ -89,14 +89,14 @@ const Footer = styled.footer(({ theme }) => `
 export const Layout = ({ children }) => {
   const windowWidth = useWindowWidth()
   const scrollPosition = useScrollPosition()
-  const { context } = useEnvironment()
+  const { config } = useEnvironment()
   
   return (
     <Wrapper>
       <Header compact={ scrollPosition > 150 ? 1 : 0 }>
         <Brand to="/">
           <img src={ HelxLogo } alt="Go Home" />
-          { context.name }
+          { config.branding }
         </Brand>
         <Flexer />
         { windowWidth <= MOBILE_THRESHHOLD  ? <MobileMenu items={ menuItems } /> : <Menu items={ menuItems } /> }
