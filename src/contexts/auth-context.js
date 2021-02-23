@@ -6,7 +6,7 @@ const HISTORY_SIZE = 10
 
 export const AuthContext = createContext({})
 
-
+// initialUser profile
 let initialUser = {
   username: 'some user',
   email: 'email@ddr.ess',
@@ -24,8 +24,10 @@ let initialUser = {
   },
   refresh_token: "",
   access_token: "",
-  context: "",
-  branding: ""
+  config: {
+    context: "",
+    branding: ""
+  }
 }
 
 
@@ -56,13 +58,12 @@ export const AuthProvider = ({ children }) => {
     loggedInUser.refresh_token = response.refresh_token;
     loggedInUser.access_token = response.access_token;
     loggedInUser.username = credentials[0];
-    loggedInUser.context = response.data.metadata.context;
-    loggedInUser.branding = response.data.metadata.branding;
-    console.log(loggedInUser);
+    loggedInUser.config.context = response.data.metadata.context;
+    loggedInUser.config.branding = response.data.metadata.branding;
     localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
     setUser(loggedInUser);
 
-    environment.updateContext(response.data.metadata.context, response.data.metadata.branding);
+    environment.updateConfig(response.data.metadata.context, response.data.metadata.branding);
     //   const login_response = await axios({
     //     method: 'POST',
     //     url: `${helxAppstoreUrl}/api-token-auth/`,
@@ -87,7 +88,7 @@ export const AuthProvider = ({ children }) => {
   const logoutHandler = () => {
     console.log('Logging out...');
     localStorage.removeItem('loggedInUser')
-    environment.updateContext("common", "HeLx Common App Registry");
+    environment.updateConfig("commonshare", "HeLx Common App Registry");
     setUser(null)
   }
 
