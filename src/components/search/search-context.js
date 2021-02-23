@@ -17,7 +17,7 @@ const PER_PAGE = 10
 export const HelxSearch = ({ children }) => {
   const { helxSearchUrl } = useEnvironment()
   const [query, setQuery] = useState('')
-  const [isLoadingResults, setIsLoadingResults] = useState('')
+  const [isLoadingResults, setIsLoadingResults] = useState(false);
   const [error, setError] = useState({})
   const [results, setResults] = useState([])
   const [totalResults, setTotalResults] = useState(0)
