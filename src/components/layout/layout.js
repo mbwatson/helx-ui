@@ -38,6 +38,11 @@ const Brand = styled(Link)(({ theme }) => `
     margin: 0;
     transition: min-height 150ms;
   }
+  & > div {
+    margin-top: 1px;
+    text-align: center;
+    min-width: 13vw;
+  }
 `)
 
 Brand.propTypes = {
@@ -96,7 +101,7 @@ export const Layout = ({ children }) => {
       <Header compact={ scrollPosition > 150 ? 1 : 0 }>
         <Brand to="/">
           <img src={ HelxLogo } alt="Go Home" />
-          { config.branding }
+          <div>{ config.branding }</div>
         </Brand>
         <Flexer />
         { windowWidth <= MOBILE_THRESHHOLD  ? <MobileMenu items={ menuItems } /> : <Menu items={ menuItems } /> }
