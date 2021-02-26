@@ -40,6 +40,7 @@ export const Result = ({ index, result }) => {
         <div className="result-heading">
           <span className="name">{ result.name }</span>
           <span className="id"><em>{ result.tag_id }</em></span>
+          <button>Launch App</button>
         </div>
         <ReactJson src={ result } collapsed={ true } enableClipboard={ false } theme="monokai" style={{ borderRadius: '3px' }}/>
       </div>

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import axios from 'axios';
 import styled, { useTheme } from 'styled-components'
 import { Container } from '../components/layout'
@@ -54,17 +54,42 @@ const ConfigSlider = styled(Card.Body)(({ theme, visible }) => `
   }
 `)
 
+const RunningStatus = styled.div(({ theme }) => `
+    height: 25px;
+    width: 25px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+`)
+
+const Status = styled.div(({ theme }) => `
+    display: flex;
+    align-items: center;
+    color: black;
+`)
+
+const StopButton = styled(Button)(({ theme }) => `
+    background-color: #ff0000;
+    color: white;
+`)
+
+const AppHeader = styled.div(({ theme }) => `
+    display: flex;
+    justify-content: space-between;
+`)
+
 const SpecsInput = styled(Input)`
   width: 15%;
   height: 30px;
 `
 
-const AppCard = ({ name, description, details, docs }) => {
+const AppCard = ({ name, description, details, docs, status }) => {
   const theme = useTheme()
   const helxAppstoreUrl = useEnvironment().helxAppstoreUrl;
   const [flipped, setFlipped] = useState(false)
 
-//create 3 state variables to store specs information
+  //create 3 state variables to store specs information
   const [currentMemory, setMemory] = useState(0);
   const [currentCpu, setCpu] = useState(0);
   const [currentGpu, setGpu] = useState(0);
@@ -76,7 +101,7 @@ const AppCard = ({ name, description, details, docs }) => {
     axios({
       method: 'GET',
       url: `${helxAppstoreUrl}start/`,
-      params:{
+      params: {
         app_id: name,
         cpu: currentCpu,
         memory: currentMemory,
@@ -88,28 +113,28 @@ const AppCard = ({ name, description, details, docs }) => {
   const gpuSpecs = [];
   const cpuSpecs = []
   const memorySpecs = [];
-  for(let i=0;i<=4;i+=0.25){
-    if(i%1 == 0) gpuSpecs.push(i);
+  for (let i = 0; i <= 4; i += 0.25) {
+    if (i % 1 == 0) gpuSpecs.push(i);
     cpuSpecs.push(i);
     memorySpecs.push(i);
   }
 
-  const handleMemoryChange = event =>{
+  const handleMemoryChange = event => {
     setMemory(event.target.value);
   }
 
-  const handleCpuChange = event =>{
+  const handleCpuChange = event => {
     setCpu(event.target.value);
   }
 
-  const handleGpuChange = event =>{
+  const handleGpuChange = event => {
     setGpu(event.target.value);
   }
 
 
   return (
     <Card style={{ minHeight: '300px', margin: `${theme.spacing.large} 0` }}>
-      <Card.Header>{name}</Card.Header>
+      <Card.Header><AppHeader>{name} {status === "Running" ? <Status class><RunningStatus />Running</Status> : <span />}</AppHeader></Card.Header>
       <Relative>
         <Card.Body>
           <Paragraph>{description}</Paragraph>
@@ -119,8 +144,8 @@ const AppCard = ({ name, description, details, docs }) => {
         <ConfigSlider visible={flipped}>
           <h5>App Config</h5>
           <ul>
-          <Dropdown value={currentMemory} id="memory" placeholder="Memory" onChange={handleMemoryChange}>
-            {memorySpecs.map(memory => <option value={memory}>{memory} GB Memory</option>)}
+            <Dropdown value={currentMemory} id="memory" placeholder="Memory" onChange={handleMemoryChange}>
+              {memorySpecs.map(memory => <option value={memory}>{memory} GB Memory</option>)}
             </Dropdown>
             <Dropdown value={currentCpu} placeholder="CPU" onChange={handleCpuChange}>
               {cpuSpecs.map(cpu => <option value={cpu}>{cpu} CPU Core</option>)}
@@ -141,18 +166,48 @@ const AppCard = ({ name, description, details, docs }) => {
         justifyContent: 'flex-end',
         transition: 'background-color 400ms'
       }}>
-        <Button small variant={flipped ? 'danger' : 'info'} onClick={toggleConfig} style={{ width: '150px' }}>
-          <Icon icon={flipped ? 'close' : 'launch'} fill="#eee" />{flipped ? 'Cancel' : 'Launch App'}
-        </Button>
+        {status === "Running" ? <StopButton small>Stop App</StopButton> :
+          <Button small variant={flipped ? 'danger' : 'info'} onClick={toggleConfig} style={{ width: '150px' }}>
+            <Icon icon={flipped ? 'close' : 'launch'} fill="#eee" />{flipped ? 'Cancel' : 'Launch App'}
+          </Button>}
       </Card.Footer>
     </Card>
   )
 }
 
 export const Apps = () => {
-  const { context } = useEnvironment()
+  const context = useEnvironment().config.context;
+  const [apps, setApps] = useState({});
 
-  if (!context) return (
+  useEffect(() => {
+    setApps({
+      "imagej": {
+        "app_id": "aancnc",
+        "name": "ImageJ Viewer",
+        "logo_name": "ImageJ",
+        "description": "Imagej is an image processor developed at NIH/LOCI.",
+        "details": "can display, edit, analyze, process, save and print 8-bit, 16-bit and 32-bit images. It can read many image formats.",
+        "docs": "https://imagej.nih.gov/ij/",
+        "cpu": [1, 2, 4],
+        "gpu": [1, 2, 4],
+        "memory": [1, 2, 4, 8]
+      },
+      "napari": {
+        "app_id": "Napari Image Viewer",
+        "name": "Napari Image Viewer",
+        "logo_name": "ImageJ",
+        "description": "Napari is a fast, interactive, multi-dimensional image viewer.",
+        "details": "It enables browsing, annotating, and analyzing large multi-dimensional images.",
+        "docs": "https://napari.org/",
+        "status": "Ready",
+        "cpu": [1, 2, 4],
+        "gpu": [1, 2, 4],
+        "memory": [1, 2, 4, 8]
+      }
+    })
+  }, [])
+
+  if (!apps) return (
     <Container>
       <Title>Apps</Title>
       <Paragraph>
@@ -165,7 +220,7 @@ export const Apps = () => {
     <Container>
       <Title>Apps</Title>
 
-      { Object.keys(context.apps).sort().map(appKey => <AppCard key={appKey} {...context.apps[appKey]} />)}
+      { Object.keys(apps).sort().map(appKey => <AppCard key={appKey} {...apps[appKey]} />)}
 
     </Container>
   )

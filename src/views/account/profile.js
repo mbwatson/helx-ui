@@ -7,6 +7,7 @@ import { Link } from '../../components/link'
 import { Button } from '../../components/button'
 import { Icon } from '../../components/icon'
 import { useAuth } from '../../contexts'
+import { Search } from '../search';
 
 function timeSince(date) {
   const seconds = Math.floor((new Date() - date) / 1000)
