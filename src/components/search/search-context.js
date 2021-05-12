@@ -5,7 +5,7 @@ import { useAuth, useEnvironment } from '../../contexts'
 
 //
 
-export const HelxSearchContext = createContext({ })
+export const HelxSearchContext = createContext({})
 export const useHelxSearch = () => useContext(HelxSearchContext)
 
 //
@@ -17,9 +17,10 @@ const PER_PAGE = 10
 export const HelxSearch = ({ children }) => {
   const { helxSearchUrl } = useEnvironment()
   const [query, setQuery] = useState('')
-  const [isLoadingResults, setIsLoadingResults] = useState('')
+  const [isLoadingResults, setIsLoadingResults] = useState(false);
   const [error, setError] = useState({})
   const [results, setResults] = useState([])
+  const [resultsApp, setResultsApp] = useState([]);
   const [totalResults, setTotalResults] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageCount, setPageCount] = useState(0)
@@ -41,7 +42,7 @@ export const HelxSearch = ({ children }) => {
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
   }, [])
-  
+
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search)
     setQuery(queryParams.get('q') || '')
@@ -52,14 +53,48 @@ export const HelxSearch = ({ children }) => {
     const fetchResults = async () => {
       setIsLoadingResults(true)
       try {
+        // dug api
         const params = {
-          index: 'test',
+          index: 'concepts_index',
           query: query,
           offset: (currentPage - 1) * PER_PAGE,
           size: PER_PAGE,
         }
         const response = await axios.post(helxSearchUrl, params)
-        // TODO: fixing total_items in API response will fix the pagination/total_items mismatch
+
+        
+        // sample params and response from pic-sure api
+
+        // const queryID = response.query_id;
+        // const picSureResponse = await axios.get('http://pic-sure-api', {
+        //   query_id = queryID,
+        //   offset = 0,
+        //   size: 10
+        // });
+
+        // let tem_pic_sure_response = {
+        //   data: {
+        //     hits: [
+        //       0: {
+        //         _id: "MONDO:0005453",
+        //         apps: {
+        //           braini: {
+        //             cpu: 2,
+        //             gpu: 2,
+        //             memory: 2
+        //           },
+        //           blackbalsm: {
+        //             cpu: 4,
+        //             gpu: 4,
+        //             memory: 4
+        //           }
+        //         }
+        //       }
+        //     ]
+        //   }
+        // }
+
+
         if (response.status === 200 && response.data.status === 'success' && response.data.result && response.data.result.hits) {
           const hits = response.data.result.hits.hits.map(r => r._source)
           setResults(hits)
@@ -87,13 +122,13 @@ export const HelxSearch = ({ children }) => {
       setQuery(trimmedQuery)
       setCurrentPage(1)
       auth.updateSearchHistory(trimmedQuery)
-      navigate(`/search?q=${ trimmedQuery }&p=1`)
+      navigate(`/search?q=${trimmedQuery}&p=1`)
     }
   }
 
   return (
-    <HelxSearchContext.Provider value={{ query, setQuery, error, isLoadingResults, results, totalResults, currentPage, setCurrentPage, perPage: PER_PAGE, pageCount, doSearch, inputRef }}>
-      { children }
+    <HelxSearchContext.Provider value={{ query, setQuery, error, isLoadingResults, results, resultsApp, totalResults, currentPage, setCurrentPage, perPage: PER_PAGE, pageCount, doSearch, inputRef }}>
+      { children}
     </HelxSearchContext.Provider>
   )
 }

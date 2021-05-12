@@ -38,6 +38,11 @@ const Brand = styled(Link)(({ theme }) => `
     margin: 0;
     transition: min-height 150ms;
   }
+  & > div {
+    margin-top: 1px;
+    text-align: center;
+    min-width: 13vw;
+  }
 `)
 
 Brand.propTypes = {
@@ -89,14 +94,14 @@ const Footer = styled.footer(({ theme }) => `
 export const Layout = ({ children }) => {
   const windowWidth = useWindowWidth()
   const scrollPosition = useScrollPosition()
-  const { context } = useEnvironment()
+  const { config } = useEnvironment()
   
   return (
     <Wrapper>
       <Header compact={ scrollPosition > 150 ? 1 : 0 }>
         <Brand to="/">
           <img src={ HelxLogo } alt="Go Home" />
-          { context.name }
+          <div>{ config.branding }</div>
         </Brand>
         <Flexer />
         { windowWidth <= MOBILE_THRESHHOLD  ? <MobileMenu items={ menuItems } /> : <Menu items={ menuItems } /> }
